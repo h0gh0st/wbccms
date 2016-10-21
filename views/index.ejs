@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <div class="container">
+      <% if (errors.length > 0) { %>
+        <div class="alert alert-danger">
+          <strong>Error! </strong><%= errors %>
+        </div>
+      <% }; %>
+
+      <div class="row">
+        <div class="col-sm-5 col-sm-push-4 login_box">
+          <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a data-toggle="tab" href="#login">Login</a></li>
+            <li><a data-toggle="tab" href="#register">Register</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="login" class="tab-pane fade in active">
+
+              <form id="login_form" action="/login" method="post">
+                <div class="form-group">
+                  <label for="name" >name : </label>
+                  <input type="text" name="name"/>
+                </div>
+                <div class="form-group">
+                  <label for="pass">pass : </label>
+                  <input type="text" name="pass"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+              </form>
+
+            </div>
+            <div id="register" class="tab-pane fade">
+
+              <form id="register_form" action="/register" method="post">
+                <div class="form-group">
+                  <label for="name">name : </label>
+                  <input type="text" name="name" />
+                </div>
+                <div class="form-group">
+                  <label for="pass">pass : </label>
+                  <input type="text" name="pass" />
+                </div>
+                <div class="form-group">
+                  <label for="email">email : </label>
+                  <input type="text" name="email" />
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+              </form>
+
+            <div
+          </div> <!-- end tab box -->
+        </div> <!-- end login_box -->
+      </div> <!-- end first row -->
+    </div> <!-- end container -->
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>

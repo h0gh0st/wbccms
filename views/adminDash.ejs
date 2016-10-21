@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-switch.css' />
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h2>Machine State</h2>
+                <div class="row">
+                    <div class="machine_help">
+                        <ul>
+                            <li>
+                                <div class="opened"></div>
+                                <p>Open - Available For Use</p>
+                            </li>
+                            <li>
+                                <div class="closed"></div>
+                                <p>Closed - Being Used</p>
+                            </li>
+                            <li>
+                                <div class="paused"></div>
+                                <p>Paused - Under Maintenance</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row" id="machine_box">
+                </div>
+            </div>
+        </div><!-- end machine list-->
+        <div class="row top_buffer">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h2>User List</h2>
+                <div class="user_box">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Timelog</th>
+                                <th>Note</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ubox"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div><!-- end container -->
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/javascripts/bootstrap-switch.js"></script>
+    <script>
+        //Get machine list
+        var dataM = <%- JSON.stringify(dataMachine) %>;
+        //Generate machine_box content
+        if(dataM != null) {
+            var htmlElements = "";
+            dataM.forEach(function(item, index, arr) {
+                let status = item.status;
+                if(item.status == 'paused') {
+                    var html = '<input type="checkbox" name="mbox" alt="'+item._id+'">';
+                }
+                else {
+                    var html = '<input type="checkbox" name="mbox" alt="'+item._id+'" checked>'
+                }
+                htmlElements += '<div class="mboxContainer">' +
+                        '<p class="text-center">ID = '+item._id+'</p>' +
+                        '<div class="mbox '+item.status+'"></div>' +
+                        html +
+                        '</div>';
+            });
+            var mbox = document.getElementById("machine_box");
+            mbox.innerHTML = htmlElements;
+        };
+
+        //Generate switch for each machine
+        $.fn.bootstrapSwitch.defaults.size = 'mini';
+        $("[name='mbox']").bootstrapSwitch().on('switchChange.bootstrapSwitch', function(event, state) {
+            var mbox = $(this).parent().parent().prev();
+            if(mbox.hasClass('opened')) {
+                mbox.removeClass('opened');
+                mbox.addClass('paused');
+            }
+            else if(mbox.hasClass('paused')) {
+                mbox.removeClass('paused');
+                mbox.addClass('opened');
+            }
+            else if(mbox.hasClass('closed')) {
+                $(this).bootstrapSwitch('state',true, true);
+                alert('Can\'t Pause A Closed Connection');
+            };
+        });
+
+        //Get user list
+        var dataU = <%- JSON.stringify(dataUser) %>;
+
+        //Generate user_box content
+        if(dataU != null) {
+            var htmlElement = "";
+            var i = 1;
+            dataU.forEach(function(item, index, arr) {
+            htmlElement += '<tr>'
+                            + '<td scope="row">' +i+ '</td>'
+                            + '<td>' +item.name+ '</td>'
+                            + '<td>' +item.email+ '</td>'
+                            + '<td>' +item.status+ '</td>'
+                            + '<td>' +item.timelog[0].date+ '</td>'
+                    + '</tr>';
+            i++;
+            });
+            var ubox = document.getElementById('ubox');
+            ubox.innerHTML = htmlElement;
+        }
+
+    </script>
+</body>
+</html>

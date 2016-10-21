@@ -1,0 +1,73 @@
+a {
+  color: #00B7FF; }
+
+.container {
+  margin: 0 auto;
+  width: 100%; }
+
+.top_buffer {
+  margin-top: 40px; }
+
+.login_box {
+  position: absolute;
+  top: 35%; }
+  .login_box form {
+    padding: 5%; }
+    .login_box form label {
+      width: 20%;
+      text-transform: capitalize; }
+    .login_box form input {
+      width: 75%;
+      color: ghostwhite; }
+  .login_box button {
+    width: 100%; }
+
+.content_box {
+  border: solid 1px white;
+  text-align: center; }
+
+hr.style11 {
+  height: 6px;
+  background: url("../images/hr-11.png") repeat-x 0 0;
+  border: 0; }
+
+.logout {
+  width: 100%; }
+
+.machine_help {
+  margin-bottom: 2%; }
+  .machine_help ul {
+    list-style: none; }
+    .machine_help ul li {
+      float: left;
+      padding: 0 10px; }
+      .machine_help ul li div {
+        width: 200px;
+        height: 5px; }
+        .machine_help ul li div.opened {
+          background-color: green; }
+        .machine_help ul li div.closed {
+          background-color: red; }
+        .machine_help ul li div.paused {
+          background-color: yellow; }
+
+.mboxContainer {
+  float: left;
+  width: 100px;
+  height: 100px; }
+  .mboxContainer .bootstrap-switch {
+    margin: 15px; }
+
+.mbox {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  background-color: green; }
+  .mbox.opened {
+    background-color: green; }
+  .mbox.closed {
+    background-color: red; }
+  .mbox.paused {
+    background-color: yellow; }
+
+/*# sourceMappingURL=style.css.map */

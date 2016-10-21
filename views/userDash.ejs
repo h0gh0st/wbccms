@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <!-- #username #status #machineID #loginT #rate -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Hi, Kamal you're Active on Machine 01.</h2>
+
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-1">
+                        <div class="content_box top_buffer">
+                            <h3>Current Time : 00-00-00</h3>
+                            <h3>Current Price : RM 00.00</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div> <!-- machine_list -->
+
+            </div>
+        </div>
+    </div>
+        <!--<div id="pay_box" class="modal fade" role="dialog">-->
+            <!--<div class="modal-dialog">-->
+                <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                        <!--<h4 class="modal-title">Payment Module</h4>-->
+                    <!--</div>-->
+                    <!--<form action="/users/pay" method="post">-->
+                        <!--<div class="modal-body">-->
+                            <!--<h4>Current Usage Time</h4>-->
+                            <!--<input type="text" id="finalT" name="finalT"></input>-->
+                            <!--<h4>Current Price to Pay</h4>-->
+                            <!--<input type="text" id="finalP" name="finalP"></input>-->
+                        <!--</div>-->
+                        <!--<div class="modal-footer">-->
+                            <!--<button type="submit" class="btn btn-default">Payment Module</button>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div> &lt;!&ndash; end modal&ndash;&gt;-->
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            //Increment Timer
+            var getT = $('#getT').html();
+            var getR = $('#getR').html();
+
+            function generateTime() {
+                var dt = new Date();
+                var msec = dt.getTime();
+                var diff = msec - getT;
+                var hh = Math.floor(diff / 1000 / 60 / 60);
+                var mm = Math.floor(diff / 1000 / 60 % 60);
+                var ss = Math.floor(diff / 1000 % 60);
+                var t = hh +':'+ mm +':'+ ss;
+                $('#loginT').html(t);
+
+                var price = ((getR * hh) + (getR/60 * mm)).toFixed(2);
+                $('#price').html('RM ' +price);
+            };
+
+            //setInterval(generateTime, 1000);
+            //Open Modal
+            $('#to_pay').click(function(){
+                $('#finalT').val( $('#loginT').html() );
+                $('#finalP').val( $('#price').html() );
+                $('#pay_box').modal('show');
+            });
+        });
+    </script>
+</body>
+</html>
