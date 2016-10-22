@@ -9,53 +9,78 @@
     <!-- #username #status #machineID #loginT #rate -->
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>Hi, Kamal you're Active on Machine 01.</h2>
-
+        <section class="user_ic">
+            <div class="user_ic_frame">
                 <div class="row">
-                    <div class="col-sm-6 col-sm-offset-1">
-                        <div class="content_box top_buffer">
-                            <h3>Current Time : 00-00-00</h3>
-                            <h3>Current Price : RM 00.00</h3>
+                    <div class="col-sm-4 col-xs-12">
+                        <div class="user_ic_image">
+                            <img class="center-block" src="/images/user-img/1.jpg" />
+                            <h3 class="text-center"><%= username %></h3>
+                            <h4 class="text-center">hoghost</h4>
                         </div>
                     </div>
-                    <div class="col-md-4">
-
+                    <div class="col-sm-4 col-xs-12">
+                        <div class="user_ic_info">
+                            <div class="row">
+                                <h4>Current Usage Time</h4>
+                                <h2 id="loginT"><%= loginT %></h2>
+                            </div>
+                            <div class="row">
+                                <h4>Current Usage Price</h4>
+                                <h2 id="price"><%= rate %></h2>
+                            </div>
+                        </div>
                     </div>
-                </div> <!-- machine_list -->
-
+                    <div class="col-sm-4 col-xs-12">
+                        <div class="user_ic_pay">
+                            <h4>Select Payment Option : </h4>
+                            <form class="pay_opt">
+                                <input type="radio" name="payOpt" value="PayPal" checked>PayPal<br>
+                                <input type="radio" name="payOpt" value="Maybank2u">Maybank2u<br>
+                                <input type="radio" name="payOpt" value="In-Store Credit">In-Store Credit<br>
+                            </form>
+                            <button class="btn btn-primary" id="to_pay">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="user_events">
+            <div class="row">
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Change Settings
+                </button>
+            </div>
+        </section>
+    </div> <!-- end container -->
+    <div id="pay_box" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Payment Module</h4>
+                </div>
+                <form action="/users/pay" method="post">
+                    <div class="modal-body">
+                        <h4>Current Usage Time</h4>
+                        <input type="text" id="finalT" name="finalT"></input>
+                        <h4>Current Price to Pay</h4>
+                        <input type="text" id="finalP" name="finalP"></input>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">Payment Module</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-        <!--<div id="pay_box" class="modal fade" role="dialog">-->
-            <!--<div class="modal-dialog">-->
-                <!--<div class="modal-content">-->
-                    <!--<div class="modal-header">-->
-                        <!--<h4 class="modal-title">Payment Module</h4>-->
-                    <!--</div>-->
-                    <!--<form action="/users/pay" method="post">-->
-                        <!--<div class="modal-body">-->
-                            <!--<h4>Current Usage Time</h4>-->
-                            <!--<input type="text" id="finalT" name="finalT"></input>-->
-                            <!--<h4>Current Price to Pay</h4>-->
-                            <!--<input type="text" id="finalP" name="finalP"></input>-->
-                        <!--</div>-->
-                        <!--<div class="modal-footer">-->
-                            <!--<button type="submit" class="btn btn-default">Payment Module</button>-->
-                        <!--</div>-->
-                    <!--</form>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div> &lt;!&ndash; end modal&ndash;&gt;-->
+    </div> <!-- end modal-->
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
             //Increment Timer
-            var getT = $('#getT').html();
-            var getR = $('#getR').html();
+            var getT = $('#loginT').html();
+            var getR = $('#price').html();
 
             function generateTime() {
                 var dt = new Date();

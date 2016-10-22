@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Abhaya+Libre|Open+Sans");
 a {
   color: #00B7FF; }
 
@@ -5,8 +6,12 @@ a {
   margin: 0 auto;
   width: 100%; }
 
-.top_buffer {
-  margin-top: 40px; }
+.row-no-margin {
+  margin-left: 0;
+  margin-right: 0; }
+
+section {
+  margin: 3em 0; }
 
 .login_box {
   position: absolute;
@@ -22,52 +27,92 @@ a {
   .login_box button {
     width: 100%; }
 
-.content_box {
-  border: solid 1px white;
-  text-align: center; }
+.user_ic_frame {
+  background-color: white;
+  color: black;
+  border-radius: 25px; }
 
-hr.style11 {
-  height: 6px;
-  background: url("../images/hr-11.png") repeat-x 0 0;
-  border: 0; }
+.user_ic_image {
+  padding: 5%;
+  border-right: solid 5px #2b3e50; }
+  .user_ic_image img {
+    width: 10em;
+    height: 10em;
+    border-radius: 100px; }
+  .user_ic_image h3 {
+    font-family: 'Open Sans', sans-serif; }
+  .user_ic_image h4 {
+    font-family: 'Abhaya Libre', serif; }
+
+.user_ic_info {
+  padding: 10%; }
+
+.user_ic_pay {
+  padding: 10%; }
+  .user_ic_pay button {
+    width: 100%;
+    margin-top: 10%; }
+
+.pay_opt {
+  border-left: solid 2px #2b3e50; }
+  .pay_opt input {
+    margin: 5%; }
 
 .logout {
   width: 100%; }
 
-.machine_help {
-  margin-bottom: 2%; }
-  .machine_help ul {
-    list-style: none; }
-    .machine_help ul li {
-      float: left;
-      padding: 0 10px; }
-      .machine_help ul li div {
-        width: 200px;
-        height: 5px; }
-        .machine_help ul li div.opened {
-          background-color: green; }
-        .machine_help ul li div.closed {
-          background-color: red; }
-        .machine_help ul li div.paused {
-          background-color: yellow; }
+@media only screen and (max-width: 500px) {
+  section {
+    margin: 1em 0; }
+  .user_ic_image {
+    border-right: none;
+    border-bottom: solid 5px #2b3e50; }
+  .user_ic_info {
+    border-bottom: solid 5px #2b3e50;
+    text-align: center; }
+  .pay_opt input {
+    margin-left: 10%; } }
 
-.mboxContainer {
-  float: left;
-  width: 100px;
-  height: 100px; }
-  .mboxContainer .bootstrap-switch {
+.machine_list h2, .user_list h2 {
+  font-family: 'Abhaya Libre', serif;
+  border-bottom: double 4px white;
+  padding: 2% 0;
+  text-transform: uppercase; }
+
+.machine_image {
+  padding: 3% 0;
+  color: black; }
+  .machine_image img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%; }
+  .machine_image .status {
+    width: 70%;
+    height: 42px;
+    background-color: green;
+    margin-top: -82%;
+    margin-left: 15%;
+    margin-bottom: 25%; }
+    .machine_image .status.opened {
+      background-color: green; }
+    .machine_image .status.closed {
+      background-color: red; }
+    .machine_image .status.paused {
+      background-color: yellow; }
+  .machine_image .bootstrap-switch {
     margin: 15px; }
 
-.mbox {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto;
-  background-color: green; }
-  .mbox.opened {
-    background-color: green; }
-  .mbox.closed {
-    background-color: red; }
-  .mbox.paused {
-    background-color: yellow; }
+.user_box table {
+  font-size: 14px; }
+  .user_box table tr {
+    border-bottom: dashed 1px white; }
+    .user_box table tr td ul {
+      list-style: none;
+      padding: 0; }
+
+.ubox_inner tr td {
+  text-align: center;
+  border-bottom: solid 1px white; }
 
 /*# sourceMappingURL=style.css.map */

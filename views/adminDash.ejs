@@ -9,34 +9,26 @@
 <body>
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <h2>Machine State</h2>
-                <div class="row">
-                    <div class="machine_help">
-                        <ul>
-                            <li>
-                                <div class="opened"></div>
-                                <p>Open - Available For Use</p>
-                            </li>
-                            <li>
-                                <div class="closed"></div>
-                                <p>Closed - Being Used</p>
-                            </li>
-                            <li>
-                                <div class="paused"></div>
-                                <p>Paused - Under Maintenance</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row" id="machine_box">
+        <section class="machine_list">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h2 class="text-center">Machine List</h2>
                 </div>
             </div>
-        </div><!-- end machine list-->
-        <div class="row top_buffer">
-            <div class="col-sm-10 col-sm-offset-1">
-                <h2>User List</h2>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <div class="machine_image" id="machine_img">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="user_list">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h2 class="text-center">User List</h2>
+                </div>
+            </div>
+            <div class="col-md-12">
                 <div class="user_box">
                     <table class="table">
                         <thead>
@@ -45,16 +37,17 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Status</th>
-                                <th>Timelog</th>
-                                <th>Note</th>
+                                <th class="text-center">Timelog</th>
+                                <th>Action</th>
+                                <th>Notes</th>
                             </tr>
                         </thead>
                         <tbody id="ubox"></tbody>
                     </table>
                 </div>
             </div>
-        </div>
-    </div><!-- end container -->
+        </section>
+    </div>
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -73,14 +66,14 @@
                 else {
                     var html = '<input type="checkbox" name="mbox" alt="'+item._id+'" checked>'
                 }
-                htmlElements += '<div class="mboxContainer">' +
-                        '<p class="text-center">ID = '+item._id+'</p>' +
-                        '<div class="mbox '+item.status+'"></div>' +
+                htmlElements += '<div class="col-sm-2 col-xs-6">' +
+                        '<img src="images/components/desktop.svg">' +
+                        '<div class="status '+item.status+'"><p class="text-center"><b>'+item.no+'</b></p></div>' +
                         html +
                         '</div>';
             });
-            var mbox = document.getElementById("machine_box");
-            mbox.innerHTML = htmlElements;
+            var machine_img = document.getElementById("machine_img");
+            machine_img.innerHTML = htmlElements;
         };
 
         //Generate switch for each machine
@@ -114,7 +107,15 @@
                             + '<td>' +item.name+ '</td>'
                             + '<td>' +item.email+ '</td>'
                             + '<td>' +item.status+ '</td>'
-                            + '<td>' +item.timelog[0].date+ '</td>'
+                            + '<td><table class="table ubox_inner">'
+                                + '<tr><td>Last Login</td><td>'+item.timelog[0].login+'</td></tr>'
+                                + '<tr><td>Last Logout</td><td>'+item.timelog[0].logout+'</td></tr>'
+                                + '<tr><td>Last Date</td><td>'+item.timelog[0].date+'</td></tr>'
+                            + '</table></td>'
+                            + '<td><ul>'
+                                + '<li>Suspend</li>'
+                                + '<li>Delete</li>'
+                            + '</ul></td>'
                     + '</tr>';
             i++;
             });
