@@ -33,4 +33,9 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/new', function(req, res, next) {
+    "use strict";
+    res.render('admin.ejs');
+});
+
 module.exports = router;

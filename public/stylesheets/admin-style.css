@@ -1,0 +1,53 @@
+html, body {
+    /*background-color: #3e3f3a;*/
+    background-color: lightgrey;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0;
+    width: 90%;
+}
+
+.breadcrumb {
+    margin: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 0.8em;
+}
+
+.breadcrumb > li + li:before {
+    content: "\003E";
+    padding: 0 5px;
+    color: #dfd7ca;
+}
+
+.top-stat {
+    list-style: none;
+    text-transform: uppercase;
+    padding-left: 0;
+    overflow: hidden;
+}
+
+.top-stat li {
+    border-right: groove 1px black;
+    float: left;
+    padding: 0% 2%;
+    margin-right: 3%;
+}
+
+.top-stat .top-stat-text, .top-stat-figure {
+    display: inline-block;
+}
+
+.top-stat .top-stat-figure span {
+    font-size: 3em;
+}
+
+.top-stat li:first-child > .top-stat-text h4, .top-stat li:first-child > .top-stat-figure {
+    color: limegreen;
+}
+
+.top-stat li:nth-child(2) > .top-stat-text h4, .top-stat li:nth-child(2) > .top-stat-figure {
+    color: goldenrod;
+}

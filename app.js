@@ -44,7 +44,7 @@ app.use('/admin', admin);
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
-app.use('/css', express.static(__dirname + '/node_modules/bootswatch/superhero')); // redirect CSS bootstrap
+app.use('/css', express.static(__dirname + '/node_modules/bootswatch/sandstone')); // redirect CSS bootstrap
 app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/fonts')); // redirect CSS bootstrap
 
 // catch 404 and forward to error handler
