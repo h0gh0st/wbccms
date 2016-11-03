@@ -2,8 +2,8 @@
 <html>
 <head>
     <link rel="stylesheet" href='/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/stylesheets/bootstrap-switch.css' />
     <link rel='stylesheet' href='/stylesheets/admin-style.css' />
-    <!--<link rel='stylesheet' href='/stylesheets/bootstrap-switch.css' />-->
 </head>
 <body>
 
@@ -38,19 +38,19 @@
                         <li>
                             <div class="top-stat-text">
                                 <h6>Active Users</h6>
-                                <h4><span class="glyphicon glyphicon-plus-sign"></span> 20 Users</h4>
+                                <h4><i class="glyphicon glyphicon-plus-sign"></i> 20 Users</h4>
                             </div>
                             <div class="top-stat-figure">
-                                <span class="glyphicon glyphicon-signal"></span>
+                                <i class="glyphicon glyphicon-signal"></i>
                             </div>
                         </li>
                         <li>
                             <div class="top-stat-text">
                                 <h6>Total Users</h6>
-                                <h4><span class="glyphicon glyphicon-plus-sign"></span> 40 Users</h4>
+                                <h4><i class="glyphicon glyphicon-plus-sign"></i> 40 Users</h4>
                             </div>
                             <div class="top-stat-figure">
-                                <span class="glyphicon glyphicon-signal"></span>
+                                <i class="glyphicon glyphicon-signal"></i>
                             </div>
                         </li>
                     </ul>
@@ -62,17 +62,122 @@
     <!-- Stats & Notes-->
     <section class="content">
         <div class="row">
-            <h2>Admin Dashboard</h2>
-            <h4>Control Center for Cyber Cafe Management System</h4>
+            <div class="col-md-12">
+                <div class="content-header">
+                    <h1>Admin Dashboard</h1>
+                    <h4>Control Center for Cyber Cafe Management System</h4>
+                </div>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-8"> <!--left-content-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="charts-container">
+                            <div class="col-md-4">
+                                <div class="pie-wrapper progress-30">
+                                    <span class="label">30<span class="smaller">%</span></span>
+                                    <div class="pie">
+                                        <div class="left-side half-circle"></div>
+                                        <div class="right-side half-circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="pie-wrapper progress-60">
+                                    <span class="label">60<span class="smaller">%</span></span>
+                                    <div class="pie">
+                                        <div class="left-side half-circle"></div>
+                                        <div class="right-side half-circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="pie-wrapper progress-90">
+                                    <span class="label">90<span class="smaller">%</span></span>
+                                    <div class="pie">
+                                        <div class="left-side half-circle"></div>
+                                        <div class="right-side half-circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="machine-status-container">
+                            <div class="container-header">
+                                <i class="glyphicon glyphicon-hdd"></i>
+                                <h5>Machine Status</h5>
+                                <h6>State of User and Machine Interaction</h6>
+                            </div>
+                            <div class="machine-status-content">
+                                <div class="machine-box"><!--machine-items-->
+                                    <div class="machine-box-desktop">
+                                        <img src="/images/components/desktop.svg" />
+                                        <div class="status">
+                                            <p class="text-center"><b>1</b></p>
+                                        </div>
+                                    </div>
+                                    <input type="checkbox" name="switch" checked>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"><!--right-content-->
+                <div class="task-summary-container">
+                    <div class="container-header">
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <h5>My Task Summary</h5>
+                        <h6>Summary of Ongoing Tasks</h6>
+                    </div>
+                    <div class="task-item"><!--task-items-->
+                        <div class="task-item-text">
+                            <p class="text-left">Updating User Settings</p>
+                            <div class="task-item-percentage pull-right">
+                                70%
+                            </div>
+                        </div>
+                        <div class="task-item-bar">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70"
+                                     aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-item"><!--task-items-->
+                        <div class="task-item-text">
+                            <p class="text-left">Load and Stress Testing</p>
+                            <div class="task-item-percentage pull-right">
+                                70%
+                            </div>
+                        </div>
+                        <div class="task-item-bar">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40"
+                                     aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 </div>
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<!--<script src="/javascripts/bootstrap-switch.js"></script>-->
+<script src="/javascripts/bootstrap-switch.js"></script>
 <script>
-
+    $.fn.bootstrapSwitch.defaults.size = 'mini';
+    $.fn.bootstrapSwitch.defaults.onColor = 'warning';
+    $("[name='switch']").bootstrapSwitch();
 </script>
 </body>
 </html>

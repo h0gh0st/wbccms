@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 html, body {
     /*background-color: #3e3f3a;*/
     background-color: lightgrey;
@@ -13,13 +16,14 @@ html, body {
     margin: 10px 0;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 0.8em;
+    font-size: 0.9em;
+    background-color: lightgrey;
 }
 
 .breadcrumb > li + li:before {
     content: "\003E";
     padding: 0 5px;
-    color: #dfd7ca;
+    color: black;
 }
 
 .top-stat {
@@ -51,3 +55,263 @@ html, body {
 .top-stat li:nth-child(2) > .top-stat-text h4, .top-stat li:nth-child(2) > .top-stat-figure {
     color: goldenrod;
 }
+
+.content-header h1, h4{
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.content-header h4 {
+    vertical-align: 20%;
+}
+
+.content-header h1 {
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    border-right: groove 1px black;
+}
+
+.charts-container {
+    color: #444;
+    font-family: 'Lato', Tahoma, Geneva, sans-serif;
+    font-size: 10em;
+    padding: 10px;
+}
+
+.charts-container:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.pie-wrapper {
+    height: 1em;
+    width: 1em;
+    float: left;
+    margin: 15px;
+    position: relative;
+}
+
+.pie-wrapper .pie {
+    height: 100%;
+    width: 100%;
+    clip: rect(0, 1em, 1em, 0.5em);
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.pie-wrapper .pie .half-circle {
+    height: 100%;
+    width: 100%;
+    border: 0.1em solid #3498db;
+    border-radius: 50%;
+    clip: rect(0, 0.5em, 1em, 0);
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.pie-wrapper .label {
+    background: #34495e;
+    border-radius: 50%;
+    bottom: 0.4em;
+    color: #ecf0f1;
+    cursor: default;
+    display: block;
+    font-size: 0.25em;
+    left: 0.4em;
+    line-height: 2.6em;
+    position: absolute;
+    right: 0.4em;
+    text-align: center;
+    top: 0.4em;
+}
+
+.pie-wrapper .label .smaller {
+    color: #bdc3c7;
+    font-size: .45em;
+    padding-bottom: 20px;
+    vertical-align: super;
+}
+
+.pie-wrapper .shadow {
+    height: 100%;
+    width: 100%;
+    border: 0.1em solid #bdc3c7;
+    border-radius: 50%;
+}
+
+.pie-wrapper.style-2 .label {
+    background: none;
+    color: #7f8c8d;
+}
+.pie-wrapper.style-2 .label .smaller {
+    color: #bdc3c7;
+}
+.pie-wrapper.progress-30 .pie .right-side {
+    display: none;
+}
+.pie-wrapper.progress-30 .pie .half-circle {
+    border-color: #3498db;
+}
+.pie-wrapper.progress-30 .pie .left-side {
+    transform: rotate(108deg);
+}
+.pie-wrapper.progress-60 .pie {
+    clip: rect(auto, auto, auto, auto);
+}
+.pie-wrapper.progress-60 .pie .right-side {
+    transform: rotate(180deg);
+}
+.pie-wrapper.progress-60 .pie .half-circle {
+    border-color: #9b59b6;
+}
+.pie-wrapper.progress-60 .pie .left-side {
+    transform: rotate(216deg);
+}
+.pie-wrapper.progress-90 .pie {
+    clip: rect(auto, auto, auto, auto);
+}
+.pie-wrapper.progress-90 .pie .right-side {
+    transform: rotate(180deg);
+}
+.pie-wrapper.progress-90 .pie .half-circle {
+    border-color: #e67e22;
+}
+.pie-wrapper.progress-90 .pie .left-side {
+    transform: rotate(324deg);
+}
+.pie-wrapper.progress-45 .pie .right-side {
+    display: none;
+}
+.pie-wrapper.progress-45 .pie .half-circle {
+    border-color: #1abc9c;
+}
+.pie-wrapper.progress-45 .pie .left-side {
+    transform: rotate(162deg);
+}
+.pie-wrapper.progress-75 .pie {
+    clip: rect(auto, auto, auto, auto);
+}
+.pie-wrapper.progress-75 .pie .right-side {
+    transform: rotate(180deg);
+}
+.pie-wrapper.progress-75 .pie .half-circle {
+    border-color: #8e44ad;
+}
+.pie-wrapper.progress-75 .pie .left-side {
+    transform: rotate(270deg);
+}
+.pie-wrapper.progress-95 .pie {
+    clip: rect(auto, auto, auto, auto);
+}
+.pie-wrapper.progress-95 .pie .right-side {
+    transform: rotate(180deg);
+}
+.pie-wrapper.progress-95 .pie .half-circle {
+    border-color: #e74c3c;
+}
+.pie-wrapper.progress-95 .pie .left-side {
+    transform: rotate(342deg);
+}
+
+.container-header {
+    background-color: gainsboro;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+.container-header > * {
+    display: inline-block;
+}
+
+.container-header > i {
+    font-size: 1.3em;
+}
+
+.container-header > h5 {
+    font-style: bold;
+    padding: 0 5px;
+    vertical-align: bottom;
+    border-right: groove 1px black;
+}
+
+.container-header > h6 {
+    font-style: italic;
+    opacity: 0.7;
+}
+
+.machine-status-container {
+    border: solid 1px grey;
+    border-radius: 5px;
+}
+
+.machine-status-container > .machine-status-content > .machine-box {
+    position: relative;
+    display: inline-block;
+    width: 19.5%;
+}
+
+.machine-status-container > .machine-status-content > .machine-box > .machine-box-desktop {
+    position: relative;
+    width: 100%;
+    height: 10em;
+}
+
+.machine-status-container > .machine-status-content > .machine-box > .machine-box-desktop > img {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 8em;
+    height: 8em;
+    z-index: 20;
+    opacity: 0.7;
+}
+
+.machine-status-container > .machine-status-content > .machine-box > .machine-box-desktop > .status {
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    width: 5.5em;
+    height: 3.2em;
+    z-index: 10;
+    background-color: limegreen;
+}
+
+.bootstrap-switch .bootstrap-switch-label {
+    background: lightgrey;
+}
+
+.machine-status-container > .machine-status-content > .machine-box > .bootstrap-switch {
+    margin: 0 28%;
+}
+
+.task-summary-container {
+    border: solid 1px grey;
+    border-radius: 5px;
+}
+
+.task-summary-container > .task-item {
+    width: 100%;
+    padding: 10px;
+}
+
+.task-summary-container > .task-item > .task-item-text > * {
+    display: inline-block;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.task-summary-container > .task-item > .task-item-bar {
+    width: 100%;
+}
+
+.task-summary-container > .task-item > .task-item-bar > .progress {
+    height: 10px;
+}
+
+
+
+
