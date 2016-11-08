@@ -2,7 +2,7 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css-hero/bootstrap.min.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
@@ -26,6 +26,11 @@
 
               <form id="login_form" action="/login" method="post">
                 <div class="form-group">
+                  <label for="machineNo">machine no :</label>
+                  <select name="machineNo" id="machineNo">
+                  </select>
+                </div>
+                <div class="form-group">
                   <label for="name" >name : </label>
                   <input type="text" name="name"/>
                 </div>
@@ -40,6 +45,11 @@
             <div id="register" class="tab-pane fade">
 
               <form id="register_form" action="/register" method="post">
+                <div class="form-group">
+                  <label for="machineNo">machine no :</label>
+                  <select name="machineNo" id="machineNo">
+                  </select>
+                </div>
                 <div class="form-group">
                   <label for="name">name : </label>
                   <input type="text" name="name" />
@@ -63,5 +73,14 @@
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        "use strict";
+        let openmachine = <%- JSON.stringify(openmachine) %>
+        openmachine.forEach(function(item) {
+          $('#machineNo').append('<option value='+item.no+'>'+item.no+'</option>')
+        })
+      });
+    </script>
   </body>
 </html>

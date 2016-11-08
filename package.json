@@ -18,6 +18,8 @@
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "connect-flash": "^0.1.1",
+    "datatables.net": "^1.10.12",
+    "datatables.net-dt": "^1.10.12",
     "mongodb": "^2.2.10"
   }
 }

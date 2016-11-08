@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href='/css/bootstrap.min.css'>
+    <link rel="stylesheet" href='/css-sand/bootstrap.min.css'>
     <link rel='stylesheet' href='/stylesheets/bootstrap-switch.css' />
+    <link rel='stylesheet' href='/datatables/css/jquery.dataTables.css' />
     <link rel='stylesheet' href='/stylesheets/admin-style.css' />
 </head>
 <body>
@@ -106,14 +107,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="machine-status-container">
+                        <div class="machine-status-container container-box">
                             <div class="container-header">
                                 <i class="glyphicon glyphicon-hdd"></i>
                                 <h5>Machine Status</h5>
                                 <h6>State of User and Machine Interaction</h6>
                             </div>
                             <div class="machine-status-content">
-                                <div class="machine-box"><!--machine-items-->
+                                <!--<div class="machine-box">&lt;!&ndash;machine-items&ndash;&gt;
                                     <div class="machine-box-desktop">
                                         <img src="/images/components/desktop.svg" />
                                         <div class="status">
@@ -121,14 +122,14 @@
                                         </div>
                                     </div>
                                     <input type="checkbox" name="switch" checked>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4"><!--right-content-->
-                <div class="task-summary-container">
+                <div class="task-summary-container container-box">
                     <div class="container-header">
                         <i class="glyphicon glyphicon-tasks"></i>
                         <h5>My Task Summary</h5>
@@ -168,16 +169,155 @@
             </div>
         </div>
 
+        <section class="tickets">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tickets-container container-box">
+                        <div class="container-header">
+                            <i class="glyphicon glyphicon-duplicate"></i>
+                            <h5>Support Tickets</h5>
+                            <h6>List of Support Tickets</h6>
+                        </div>
+                        <div class="tickets-table">
+                            <table id="table_1" class="table">
+                                <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Name</th>
+                                    <th>Title</th>
+                                    <th>Priority</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tickets">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tickets-container container-box">
+                        <div class="container-header">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <h5>Users</h5>
+                            <h6>List of All Users</h6>
+                        </div>
+                        <div class="tickets-table">
+                            <table id="table_1" class="table">
+                                <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Name</th>
+                                    <th>Title</th>
+                                    <th>Priority</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
     </section>
 </div>
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/javascripts/bootstrap-switch.js"></script>
+<script src="/datatables/js/jquery.dataTables.js"></script>
 <script>
-    $.fn.bootstrapSwitch.defaults.size = 'mini';
-    $.fn.bootstrapSwitch.defaults.onColor = 'warning';
-    $("[name='switch']").bootstrapSwitch();
+    $(document).ready(function() {
+        "use strict";
+        // get & populate machine status
+        let machineState = <%- JSON.stringify(dataMachine) %>;
+        //Generate machine_box content
+        if(machineState != null) {
+            let htmlElements = "";
+            machineState.forEach(function(item, index, arr) {
+                let status = item.status;
+                let html = ""
+                if(item.status == 'paused') {
+                    html = '<input type="checkbox" name="machineStateSwitch" alt="'+item._id+'">';
+                }
+                else {
+                    html = '<input type="checkbox" name="machineStateSwitch" alt="'+item._id+'" checked>'
+                }
+                htmlElements += '<div class="machine-box">'
+                                + '<div class="machine-box-desktop">'
+                                    + '<img src="/images/components/desktop.svg" />'
+                                    + '<div class="status '+item.status+'">'
+                                        + '<p class="text-center"><b>'+item.no+'</b></p>'
+                                    + '</div>'
+                                + '</div>'
+                                + html
+                                + '</div>'
+            });
+            $('.machine-status-content').append(htmlElements);
+        };
+        //Initiate and set switches for machine status
+        $.fn.bootstrapSwitch.defaults.size = 'mini';
+        $.fn.bootstrapSwitch.defaults.onColor = 'warning';
+        $("[name='machineStateSwitch']").bootstrapSwitch().on('switchChange.bootstrapSwitch', function(event, state) {
+            var mbox = $(this).parent().parent().prev().children('div');
+            console.log(mbox.className);
+            if(mbox.hasClass('open')) {
+                mbox.removeClass('open');
+                mbox.addClass('paused');
+            }
+            else if(mbox.hasClass('paused')) {
+                mbox.removeClass('paused');
+                mbox.addClass('open');
+            }
+            else if(mbox.hasClass('active')) {
+                $(this).bootstrapSwitch('state',true, true);
+                alert('Can\'t Pause A Closed Connection');
+            };
+        });
+
+        //Get and populate tickets table
+        let tickets = <%- JSON.stringify(dataTickets) %>
+        tickets.forEach(function(item) {
+            var html = '<tr>'
+                    + '<td>[#'+item.number+']</td>'
+                    + '<td>'+item.date+'</td>'
+                    + '<td>'+item.category+'</td>'
+                    + '<td>'+item.name+'</td>'
+                    + '<td>'+item.title+'</td>'
+                    + '<td>'+item.priority+'</td>'
+                    + '</tr>';
+
+            $('#table_1 tbody').append(html);
+        });
+        //Initiate dt
+        $('#table_1').DataTable();
+
+        //Get and populate user table
+        let users = <%- JSON.stringify(dataUser) %>
+        tickets.forEach(function(item) {
+            var html = '<tr>'
+                    + '<td>[#'+item.number+']</td>'
+                    + '<td>'+item.date+'</td>'
+                    + '<td>'+item.category+'</td>'
+                    + '<td>'+item.name+'</td>'
+                    + '<td>'+item.title+'</td>'
+                    + '<td>'+item.priority+'</td>'
+                    + '</tr>';
+
+            $('#table_id tbody').append(html);
+        });
+    });
 </script>
 </body>
 </html>

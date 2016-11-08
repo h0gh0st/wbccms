@@ -216,6 +216,12 @@ html, body {
     transform: rotate(342deg);
 }
 
+.container-box {
+    border: solid 1px grey;
+    border-radius: 5px;
+    margin: 1em 0;
+}
+
 .container-header {
     background-color: gainsboro;
     border-radius: 5px;
@@ -233,7 +239,7 @@ html, body {
 }
 
 .container-header > h5 {
-    font-style: bold;
+    font-weight: bold;
     padding: 0 5px;
     vertical-align: bottom;
     border-right: groove 1px black;
@@ -244,15 +250,11 @@ html, body {
     opacity: 0.7;
 }
 
-.machine-status-container {
-    border: solid 1px grey;
-    border-radius: 5px;
-}
-
 .machine-status-container > .machine-status-content > .machine-box {
     position: relative;
     display: inline-block;
     width: 19.5%;
+    padding-bottom: 1em;
 }
 
 .machine-status-container > .machine-status-content > .machine-box > .machine-box-desktop {
@@ -278,7 +280,19 @@ html, body {
     width: 5.5em;
     height: 3.2em;
     z-index: 10;
+    background-color: #fff;
+}
+
+.machine-status-container > .machine-status-content > .machine-box > .machine-box-desktop > .status.active {
     background-color: limegreen;
+}
+
+.machine-status-container > .machine-status-content > .machine-box > .machine-box-desktop > .status.open {
+    background-color: red;
+}
+
+.machine-status-container > .machine-status-content > .machine-box > .machine-box-desktop > .status.paused {
+    background-color: gold;
 }
 
 .bootstrap-switch .bootstrap-switch-label {
@@ -289,10 +303,6 @@ html, body {
     margin: 0 28%;
 }
 
-.task-summary-container {
-    border: solid 1px grey;
-    border-radius: 5px;
-}
 
 .task-summary-container > .task-item {
     width: 100%;
@@ -310,6 +320,33 @@ html, body {
 
 .task-summary-container > .task-item > .task-item-bar > .progress {
     height: 10px;
+}
+
+.tickets-container > .tickets-table {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 0 10px;
+}
+
+.dataTable {
+    font-family: 'Open Sans' ,Arial, sans-serif;
+}
+
+.dataTables_length {
+    display: none;
+}
+
+.dataTables_filter input {
+    background-color: #fff;
+    border: groove 1px grey;
+    margin: 10px;
+}
+
+.dataTables_paginate {
+    display: none;
+}
+
+.ticket-container table {
+    width: 90%;
 }
 
 

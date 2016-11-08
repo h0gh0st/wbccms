@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Abhaya+Libre');
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.row-no-margin {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.info-text h2 {
+    font-family: 'Oswald', sans-serif;
+}
+
+section {
+    margin: 3em 0;
+}
+
+.user_ic_frame {
+    background-color: white;
+    color: black;
+    border-radius: 25px;
+}
+
+.user_ic_image {
+    padding: 5%;
+    border-right: solid 5px #2b3e50;
+}
+
+.user_ic_image img {
+    width: 15em;
+    height: 15em;
+    border-radius: 100px;
+}
+
+.user_ic_image h3 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.user_ic_image h4 {
+    font-family: 'Abhaya Libre', serif;
+}
+
+.user_ic_info {
+    padding: 10%;
+}
+
+.change_set_btn {
+    height: 0;
+    padding-right: 1em;
+    cursor: pointer;
+}
+
+.change_set_btn > i, h5 {
+    display: inline-block;
+}
+
+.user_ic_pay {
+    padding: 10%;
+}
+
+.user_ic_pay button {
+    width: 100%;
+    margin-top: 10%;
+}
+
+.pay_opt {
+    border-left: solid 2px #2b3e50;
+}
+
+.pay_opt input {
+    margin: 5%;
+}
+
+.logout {
+    width: 100%; }
+
+@media only screen and (max-width: 500px) {
+    section {
+        margin: 1em 0;
+    }
+
+    .user_ic_image {
+        border-right: none;
+        border-bottom: solid 5px #2b3e50;
+    }
+
+    .user_ic_info {
+        border-bottom: solid 5px #2b3e50;
+        text-align: center;
+    }
+
+    .pay_opt input {
+        margin-left: 10%;
+    }
+}

@@ -12,9 +12,25 @@ mongo.connect(mongourl, (err, db) => {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {
-    title: req.app.locals.site.title,
-    errors: req.flash('error')
+  "use strict";
+  let openmachine = [];
+
+  mongo.connect(mongourl, (err, db) => {
+    assert.equal(null, err);
+    let cursor = db.collection('machinelist').find({});
+    cursor.forEach((dbitem, index, arr) => {
+      assert.equal(null, index);
+      if(dbitem.status === 'open') {
+        openmachine.push(dbitem);
+      }
+    }, () => {
+      db.close();
+      res.render('index', {
+        title: req.app.locals.site.title,
+        errors: req.flash('error'),
+        openmachine: openmachine
+      });
+    })
   });
 });
 
@@ -23,6 +39,7 @@ router.post('/login', (req, res, next) => {
   "use strict";
   let name = req.body.name;
   let pass = req.body.pass;
+  let machineNo = req.body.machineNo;
   let data = [];
 
   mongo.connect(mongourl, (err, db) => {
@@ -39,10 +56,10 @@ router.post('/login', (req, res, next) => {
         let id = data[0]._id;
 
         //init session
-        req.session.machineID = 2;
+        // req.session.machineID = 2;
         // console.log('A', req.session.machineID);
 
-        res.redirect('/users/' + id);
+        res.redirect('/users/'+machineNo+'/'+id);
       }
       else {
         req.flash('error', 'Credential Failure');
@@ -76,8 +93,8 @@ router.post('/register', function(req, res, next) {
       logoutMsec: null,
       price: null
     }],
-    status: 'active',
-    notes: []
+    emotion: [],
+    status: 'active'
   };
 
   mongo.connect(mongourl, (err, db) => {

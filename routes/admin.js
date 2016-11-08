@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
     "use strict";
     let dataMachine = [];
     let dataUser = [];
+    let dataTickets = [];
     mongo.connect(mongourl, (err, db) => {
         assert.equal(null, err);
         let cursorMachine = db.collection('machinelist').find({});
@@ -21,21 +22,34 @@ router.get('/', function(req, res, next) {
                 assert.equal(null, index);
                 dataUser.push(dbitem);
             }, () => {
-                db.close();
+                let cursorUser = db.collection('tickets').find({});
+                cursorUser.forEach((dbitem, index, arr) => {
+                    assert.equal(null, index);
+                    dataTickets.push(dbitem);
+                }, () => {
+                    db.close();
 
-                res.render('adminDash.ejs', {
-                    title: req.app.locals.site.title,
-                    dataMachine: dataMachine,
-                    dataUser: dataUser
+                    res.render('admin.ejs', {
+                        title: req.app.locals.site.title,
+                        dataMachine: dataMachine,
+                        dataUser: dataUser,
+                        dataTickets: dataTickets
+                    });
                 });
             });
         });
     });
 });
 
-router.get('/new', function(req, res, next) {
+
+
+/*router.get('/new', function(req, res, next) {
     "use strict";
-    res.render('admin.ejs');
-});
+    let machineBox = [];
+    let userBox = [];
+    const fs = require('fs');
+
+
+});*/
 
 module.exports = router;

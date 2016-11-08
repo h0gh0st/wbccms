@@ -8,10 +8,12 @@ const mongourl = 'mongodb://localhost:27017/test';
 //57f3637dcf76da1ff97d531f
 
 /* GET users listing. */
-router.get('/:userid', function(req, res, next) {
+router.get('/:machineNo/:userid', function(req, res, next) {
   "use strict";
   let data = [];
   let userid = req.params.userid;
+  let machineNo = req.params.machineNo;
+  console.log(machineNo);
   userid = require('mongodb').ObjectID(userid);
 
   mongo.connect(mongourl, (err, db) => {
