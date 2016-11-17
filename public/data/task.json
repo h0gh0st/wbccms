@@ -1,0 +1,38 @@
+[
+  {
+    taskName: 'Updating User System',
+    status: 'Pending',
+    taskProgress: 50,
+    subTask: [
+      {
+        taskName: 'Change User Icon',
+        taskProgress: 50,
+      },
+      {
+        taskName: 'Change User Verification',
+        taskProgress: 50,
+      }
+    ]
+  },
+  {
+    taskName: 'Load & Stess Testing',
+    status: 'Pending',
+    taskProgress: 50,
+    subTask: [
+      {
+        taskName: 'Stress User',
+        taskProgress: 50,
+      },
+      {
+        taskName: 'Stress System',
+        taskProgress: 50,
+      }
+    ]
+  },
+  {
+    taskName: 'Data Duplication Testing',
+    status: 'Pending',
+    taskProgress: 70,
+    subTask: []
+  }
+]

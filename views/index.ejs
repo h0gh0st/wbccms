@@ -3,7 +3,7 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/css-hero/bootstrap.min.css">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/index-style.css' />
   </head>
   <body>
 
@@ -27,16 +27,16 @@
               <form id="login_form" action="/login" method="post">
                 <div class="form-group">
                   <label for="machineNo">machine no :</label>
-                  <select name="machineNo" id="machineNo">
+                  <select name="machineNo" class="machineNo">
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="name" >name : </label>
-                  <input type="text" name="name"/>
+                  <input type="text" name="name" pattern=".{3,}" required/>
                 </div>
                 <div class="form-group">
                   <label for="pass">pass : </label>
-                  <input type="text" name="pass"/>
+                  <input type="text" name="pass" pattern=".{4,}" required/>
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
               </form>
@@ -47,7 +47,7 @@
               <form id="register_form" action="/register" method="post">
                 <div class="form-group">
                   <label for="machineNo">machine no :</label>
-                  <select name="machineNo" id="machineNo">
+                  <select name="machineNo" class="machineNo">
                   </select>
                 </div>
                 <div class="form-group">
@@ -78,7 +78,7 @@
         "use strict";
         let openmachine = <%- JSON.stringify(openmachine) %>
         openmachine.forEach(function(item) {
-          $('#machineNo').append('<option value='+item.no+'>'+item.no+'</option>')
+          $('.machineNo').append('<option value='+item.no+'>'+item.no+'</option>')
         })
       });
     </script>

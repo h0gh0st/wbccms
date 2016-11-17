@@ -7,7 +7,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 
-const routes = require('./routes/index');
+const index = require('./routes/index');
 const users = require('./routes/users');
 const admin = require('./routes/admin');
 
@@ -38,17 +38,23 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+app.use('/', index);
+app.use('/index', index);
 app.use('/users', users);
 app.use('/admin', admin);
 
+//bootstrap components
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css-sand', express.static(__dirname + '/node_modules/bootswatch/sandstone')); // redirect CSS bootstrap
 app.use('/css-hero', express.static(__dirname + '/node_modules/bootswatch/superhero')); // redirect CSS bootstrap
+app.use('/css-cerulean', express.static(__dirname + '/node_modules/bootswatch/cerulean')); // redirect CSS bootstrap
 app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/fonts')); // redirect fonts bootstrap
+//additional libraries
 app.use('/datatables', express.static(__dirname + '/node_modules/datatables.net')); // redirect JS dt
 app.use('/datatables', express.static(__dirname + '/node_modules/datatables.net-dt')); // redirect CSS dt
+app.use('/chart', express.static(__dirname + '/node_modules/chart.js/dist'));
+app.use('/webcamjs', express.static(__dirname + '/node_modules/webcamjs'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -2,61 +2,95 @@
 <html>
 <head>
     <title><%= title %></title>
-    <link rel="stylesheet" href="/css-hero/bootstrap.min.css">
+    <link rel="stylesheet" href="/css-cerulean/bootstrap.min.css">
     <link rel='stylesheet' href='/stylesheets/users-style.css' />
 </head>
 <body>
 
+    <nav class="nav navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">KK WBCCMS</a>
+                <p class="navbar-text text-capitalize"><strong>Status : <%= status %></strong></p>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <section class="user_ic">
-            <h1>User Overview</h1>
-            <div class="user_ic_frame">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="user_ic_image">
-                            <img class="center-block" src="/images/user-img/1.jpg" />
-                            <h3 class="text-center"><%= username %></h3>
-                            <h4 class="text-center">hoghost</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="user_ic_info">
-                            <div class="row">
-                                <h4>Current Usage Time</h4>
-                                <h2 id="loginT"><%= loginT %></h2>
-                            </div>
-                            <div class="row">
-                                <h4>Current Usage Price</h4>
-                                <h2 id="price"><%= rate %></h2>
+            <div class="jumbotron">
+                <div class="user_ic_frame">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="user_ic_image">
+                                <img class="center-block" src="/images/user-img/1.jpg" />
+                                <h2 class="text-center"><%= username %></h2>
+                                <h3 class="text-center">hoghost</h3>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="change_set_btn text-right">
-                            <i class="glyphicon glyphicon-cog"></i>
-                            <h5>Change Settings</h5>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="user_ic_info">
+                                <div class="row">
+                                    <h4 class="text-center">Current Usage Time :</h4>
+                                    <h1 class="text-center" id="loginT">00 : 00 : 00</h1>
+                                </div>
+                                <div class="row">
+                                    <h4 class="text-center">Current Usage Price :</h4>
+                                    <h1 class="text-center" id="price">RM 0.00</h1>
+                                </div>
+                            </div>
                         </div>
-                        <div class="user_ic_pay">
-                            <h4>Select Payment Option : </h4>
-                            <form class="pay_opt">
-                                <input type="radio" name="payOpt" value="PayPal" checked>PayPal<br>
-                                <input type="radio" name="payOpt" value="Maybank2u">Maybank2u<br>
-                                <input type="radio" name="payOpt" value="In-Store Credit">In-Store Credit<br>
-                            </form>
-                            <button class="btn btn-primary" id="to_pay">Checkout</button>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <!--<div class="change_set_btn text-right">
+                                <i class="glyphicon glyphicon-cog"></i>
+                                <h5>Change Settings</h5>
+                            </div>-->
+                            <div class="user_ic_pay">
+                                <h4>Select Payment Option :</h4>
+                                <form class="pay_opt">
+                                    <div class="radio">
+                                        <label><input type="radio" value="PayPal" name="optradio" checked>PayPal</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" value="Maybank2u" name="optradio">Maybank2u</label>
+                                    </div>
+                                    <div class="radio disabled">
+                                        <label><input type="radio" name="optradio" disabled>In-Store Credit</label>
+                                    </div>
+                                </form>
+                                <button class="btn btn-primary" id="to_pay">Checkout</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <section class="emo_container">
-            <h1>Users Emotion History</h1>
             <div class="row">
                 <div class="col-md-8">
-                    //Chart
-                </div>
-                <div class="col-md-8">
+                    <div class="jumbotron">
+                        <canvas id="emo_display"></canvas>
+                    </div>
 
+                </div>
+                <div class="col-md-4">
+                    <div class="jumbotron">
+                        <div class="emo_get">
+                            <div class="emo_video_container">
+                                <video autoplay id="emo_video" width="300" height="250"></video>
+                                <canvas id="emo_video_overlay" width="300" height="250"></canvas>
+                            </div>
+                            <h4 id="emo_video_status"></h4>
+                            <button class="btn btn-warning" id="emo_start">Start</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="emo_camera_result">
+                    </div>
                 </div>
             </div>
         </section>
@@ -68,51 +102,76 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Payment Module</h4>
                 </div>
-                <form action="/users/pay" method="post">
+                <form action="/users/pay/<%= machineNo %>/<%= userId %>" method="post">
                     <div class="modal-body">
                         <h4>Current Usage Time</h4>
-                        <input type="text" id="finalT" name="finalT"></input>
+                        <input type="text" readonly="readonly" id="finalT" name="finalT" />
                         <h4>Current Price to Pay</h4>
-                        <input type="text" id="finalP" name="finalP"></input>
+                        <input type="text" readonly="readonly" id="finalP" name="finalP" />
+                        <h4>Selected Option</h4>
+                        <input type="text" readonly="readonly" id="finalOpt" name="finalOpt" />
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-default">Payment Module</button>
+                        <button type="submit" class="btn btn-default" >Payment Module</button>
                     </div>
                 </form>
             </div>
         </div>
     </div> <!-- end modal-->
+</body>
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/chart/Chart.bundle.min.js"></script>
+
+    <script src="/javascripts/clmtrackr/utils.js"></script>
+    <script src="/javascripts/clmtrackr/clmtrackr.min.js"></script>
+    <script src="/javascripts/clmtrackr/model_pca_20_svm_emotionDetection.js"></script>
+    <script src="/javascripts/clmtrackr/emotion_classifier.js"></script>
+    <script src="/javascripts/clmtrackr/emotionmodel.js"></script>
+    <script src="/javascripts/setUserChart.js"></script>
+    <script src="/javascripts/setEmoDetec.js"></script>
+
     <script>
         $(document).ready(function() {
-            //Increment Timer
-//            var getT = $('#loginT').html();
-//            var getR = $('#price').html();
+            "use strict";
 
-//            function generateTime() {
-//                var dt = new Date();
-//                var msec = dt.getTime();
-//                var diff = msec - getT;
-//                var hh = Math.floor(diff / 1000 / 60 / 60);
-//                var mm = Math.floor(diff / 1000 / 60 % 60);
-//                var ss = Math.floor(diff / 1000 % 60);
-//                var t = hh +':'+ mm +':'+ ss;
-//                $('#loginT').html(t);
-//
-//                var price = ((getR * hh) + (getR/60 * mm)).toFixed(2);
-//                $('#price').html('RM ' +price);
-//            };
+            //Increment Time
+            let getT = <%- loginT %>;
+            let getR = <%- rate %>;
+            function generateTime(dbt, dbr) {
+                let dt = new Date();
+                let msec = dt.getTime();
+                let diff = msec - dbt;
+                let hh = Math.floor(diff / 1000 / 60 / 60);
+                let mm = Math.floor(diff / 1000 / 60 % 60);
+                let ss = Math.floor(diff / 1000 % 60);
+                let t = hh +'h '+ mm +'m '+ ss +'s ';
+                $('#loginT').html(t);
 
-            //setInterval(generateTime, 1000);
+                let price = ((dbr * hh) + (dbr/60 * mm) + (dbr/3600)).toFixed(2);
+                $('#price').html('RM ' +price);
+            };
+            setInterval(function() {
+                generateTime(getT, getR);
+            }, 1000);
+
             //Open Modal
             $('#to_pay').click(function(){
                 $('#finalT').val( $('#loginT').html() );
                 $('#finalP').val( $('#price').html() );
+
+                let radios = document.getElementsByName('optradio');
+                for (var i = 0, length = radios.length; i < length; i++) {
+                    if (radios[i].checked) {
+                        var userOpt = radios[i].value;
+                        break;
+                    }
+                }
+
+                $('#finalOpt').val(userOpt);
                 $('#pay_box').modal('show');
             });
         });
     </script>
-</body>
 </html>

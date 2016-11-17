@@ -41,6 +41,24 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/taskDash', function(req, res, next) {
+    "use strict";
+    let dataTask = [];
+    mongo.connect(mongourl, (err, db) => {
+        assert.equal(null, err);
+        let cursorMachine = db.collection('task').find({});
+        cursorMachine.forEach((dbitem, index, arr) => {
+            assert.equal(null, index);
+            dataTask.push(dbitem);
+    }, () => {
+            db.close();
+            res.render('taskDash.ejs', {
+                title: req.app.locals.site.title,
+                dataTask : dataTask
+            });
+        });
+    });
+});
 
 
 /*router.get('/new', function(req, res, next) {
@@ -48,8 +66,6 @@ router.get('/', function(req, res, next) {
     let machineBox = [];
     let userBox = [];
     const fs = require('fs');
-
-
 });*/
 
 module.exports = router;

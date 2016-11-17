@@ -1,0 +1,66 @@
+@font-face {
+    font-family: 'Abhaya Libre' ;
+    src: url('/font/abhaya-libre/AbhayaLibre-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Open Sans' ;
+    src: url('/font/open-sans/OpenSans-Regular.ttf') format('truetype');
+}
+
+a {
+    color: #00B7FF;
+}
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.row-no-margin {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+section {
+    margin: 3em 0;
+}
+
+.login_box {
+    position: absolute;
+    top: 35%;
+}
+.login_box form {
+    padding: 5%;
+}
+.login_box form select{
+    background-color: #ffffff;
+    color:  #5f5f5f;
+    box-sizing: border-box;
+    width: 240px;
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+    padding: 2px;
+    border: 1px solid #dbdbdb;
+}
+.login_box form label {
+    width: 20%;
+    text-transform: capitalize;
+}
+.login_box form input {
+    width: 75%;
+    color: blue;
+    border: 1px solid ghostwhite;
+}
+.login_box form input:focus:invalid {
+    border: 2px solid #F5192F;
+    box-shadow: 0 0 4px #F5192F;
+}
+.login_box form input:focus:valid {
+    border: 2px solid #64C364;
+    box-shadow: 0 0 4px #64C364;
+}
+.login_box button {
+    width: 100%;
+}
+
+
+

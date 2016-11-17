@@ -10,6 +10,7 @@ mongo.connect(mongourl, (err, db) => {
   console.log('Connection Succesful');
 });
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   "use strict";
@@ -51,17 +52,33 @@ router.post('/login', (req, res, next) => {
         data.push(dbitem);
       }
     }, () => {
-      db.close();
+
       if(data.length == 1) {
         let id = data[0]._id;
+        id = require('mongodb').ObjectID(id);
 
-        //init session
-        // req.session.machineID = 2;
-        // console.log('A', req.session.machineID);
+        let dt = new Date();
+        let d = dt.getFullYear() +'-'+ (dt.getMonth()+1) +'-'+ dt.getDate();
+        let t = dt.getHours() +':'+ dt.getMinutes() +':'+ dt.getSeconds()+ '.' +dt.getMilliseconds();
+        let msec = dt.getTime();
 
+        db.collection('userdata').update({_id:id}, {
+          $push : { timelog : {
+              date: d,
+              login: t,
+              loginMsec: msec,
+              logout: null,
+              logoutMsec: null,
+              price: null
+          }},
+          $set : { status: 'active' }
+        });
+
+        db.close();
         res.redirect('/users/'+machineNo+'/'+id);
       }
       else {
+        db.close();
         req.flash('error', 'Credential Failure');
         res.redirect('/');
       }
@@ -72,6 +89,7 @@ router.post('/login', (req, res, next) => {
 /* Register */
 router.post('/register', function(req, res, next) {
   "use strict";
+  let machineNo = req.body.machineNo;
   let checkName;
   let dt = new Date();
   let d = dt.getFullYear() +'-'+ (dt.getMonth()+1) +'-'+ dt.getDate();
@@ -93,7 +111,11 @@ router.post('/register', function(req, res, next) {
       logoutMsec: null,
       price: null
     }],
-    emotion: [],
+    emotion: [{
+      date: null,
+      time: null,
+      reading: null
+    }],
     status: 'active'
   };
 
@@ -116,7 +138,7 @@ router.post('/register', function(req, res, next) {
           db.collection('userdata').insertOne(item, function(err, result) {
             assert.equal(null, err);
             console.log('User ' +item.name+ ' created');
-            res.redirect('/users/'+result.insertedId);
+            res.redirect('/users/'+machineNo+'/'+result.insertedId);
           });
         }
         catch (e) {

@@ -17,9 +17,13 @@
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
+    "chart.js": "^2.3.0",
+    "clmtrackr": "^1.0.1",
     "connect-flash": "^0.1.1",
     "datatables.net": "^1.10.12",
     "datatables.net-dt": "^1.10.12",
-    "mongodb": "^2.2.10"
+    "mongodb": "^2.2.10",
+    "mssql": "^3.3.0",
+    "webcamjs": "^1.0.16"
   }
 }
