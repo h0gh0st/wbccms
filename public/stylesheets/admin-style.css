@@ -304,23 +304,55 @@ html, body {
 }
 
 
-.task-summary-container > .task-item {
+.task-list > .task-item {
     width: 100%;
     padding: 10px;
 }
 
-.task-summary-container > .task-item > .task-item-text > * {
+.task-list > .task-item > .task-item-text > * {
     display: inline-block;
     font-family: 'Open Sans', Arial, sans-serif;
 }
 
-.task-summary-container > .task-item > .task-item-bar {
+.task-list > .task-item > .task-item-bar {
     width: 100%;
 }
 
-.task-summary-container > .task-item > .task-item-bar > .progress {
+.task-list > .task-item > .task-item-bar > .progress {
     height: 10px;
 }
+
+.taskSave {
+    display: none;
+}
+
+#taskAdd .modal-body {
+    text-align: center;
+}
+
+#ticketAdd .modal-body {
+    text-align: center;
+}
+
+.slider-selection {
+    background: #BABABA;
+}
+
+.task-item-percentage > div > i {
+    padding: 0 0.3em;
+    cursor: pointer;
+}
+
+select.btn-mini {
+    height: auto;
+    line-height: 10px;
+    margin-bottom: 2px;
+}
+
+select.btn-mini:hover {
+    color: black;
+}
+
 
 .tickets-container > .tickets-table {
     background-color: rgba(255, 255, 255, 0.5);

@@ -79,7 +79,7 @@ function runEmoChart() {
     "use strict";
     var ctx = document.getElementById('emo_display').getContext("2d");
     var myLine = new Chart(ctx, config);
-
+    return myLine;
     /*setTimeout(function(){
         myLine.data.datasets[0].data[3] = 3;
         myLine.data.labels[3] = 1.45;
@@ -95,7 +95,7 @@ function updateChart(x, y) {
     myLine.data.datasets[0].data[dataCount] = x;
     myLine.data.labels[labelCount] = y;
     myLine.update();
-    console.log('Fire')
+    console.log('Update Chart')
 }
 
 

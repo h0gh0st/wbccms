@@ -4,6 +4,7 @@
     <link rel="stylesheet" href='/css-sand/bootstrap.min.css'>
     <link rel='stylesheet' href='/stylesheets/bootstrap-switch.css' />
     <link rel='stylesheet' href='/datatables/css/jquery.dataTables.css' />
+    <link rel='stylesheet' href='/bt-slider/css/bootstrap-slider.min.css' />
     <link rel='stylesheet' href='/stylesheets/admin-style.css' />
 </head>
 <body>
@@ -12,14 +13,14 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">ZZZTop</a>
+            <a class="navbar-brand" href="#">KK Cyber Cafe</a>
         </div>
-        <ul class="nav navbar-nav">
+<!--        <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#">Page 1</a></li>
             <li><a href="#">Page 2</a></li>
             <li><a href="#">Page 3</a></li>
-        </ul>
+        </ul>-->
     </div>
 </nav>
 
@@ -39,7 +40,7 @@
                         <li>
                             <div class="top-stat-text">
                                 <h6>Active Users</h6>
-                                <h4><i class="glyphicon glyphicon-plus-sign"></i> 20 Users</h4>
+                                <h4><i class="glyphicon glyphicon-plus-sign"></i> 3 Users</h4>
                             </div>
                             <div class="top-stat-figure">
                                 <i class="glyphicon glyphicon-signal"></i>
@@ -48,7 +49,7 @@
                         <li>
                             <div class="top-stat-text">
                                 <h6>Total Users</h6>
-                                <h4><i class="glyphicon glyphicon-plus-sign"></i> 40 Users</h4>
+                                <h4><i class="glyphicon glyphicon-plus-sign"></i> 10 Users</h4>
                             </div>
                             <div class="top-stat-figure">
                                 <i class="glyphicon glyphicon-signal"></i>
@@ -132,58 +133,14 @@
                 </div>
             </div>
             <div class="col-md-4"><!--right-content-->
-                <button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus"></i> Add New Task</button>
+                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#taskAdd"><i class="glyphicon glyphicon-plus"></i> Add New Task</button>
                 <div class="task-summary-container container-box">
                     <div class="container-header">
                         <i class="glyphicon glyphicon-tasks"></i>
-                        <h5>My Task Summary</h5>
-                        <h6>Summary of Ongoing Tasks</h6>
+                        <h5>Admin Task List</h5>
+                        <h6>List of Ongoing Tasks</h6>
                     </div>
-                    <div class="task-item"><!--task-items-->
-                        <div class="task-item-text">
-                            <p class="text-left">Updating Client Side</p>
-                            <div class="task-item-percentage pull-right">
-                                70%
-                            </div>
-                        </div>
-                        <div class="task-item-bar">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="task-item"><!--task-items-->
-                        <div class="task-item-text">
-                            <p class="text-left">Load and Stress Testing</p>
-                            <div class="task-item-percentage pull-right">
-                                40%
-                            </div>
-                        </div>
-                        <div class="task-item-bar">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="task-item"><!--task-items-->
-                        <div class="task-item-text">
-                            <p class="text-left">Database Integration</p>
-                            <div class="task-item-percentage pull-right">
-                                60%
-                            </div>
-                        </div>
-                        <div class="task-item-bar">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="task-list"></div>
                 </div>
             </div>
         </div>
@@ -191,6 +148,7 @@
         <section class="tickets">
             <div class="row">
                 <div class="col-md-12">
+                    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#ticketAdd"><i class="glyphicon glyphicon-plus"></i> Add New Ticket</button>
                     <div class="tickets-container container-box">
                         <div class="container-header">
                             <i class="glyphicon glyphicon-duplicate"></i>
@@ -198,7 +156,7 @@
                             <h6>List of Support Tickets</h6>
                         </div>
                         <div class="tickets-table">
-                            <table id="table_1" class="table">
+                            <table id="table_ticket" class="table">
                                 <thead>
                                 <tr>
                                     <th>Number</th>
@@ -224,19 +182,17 @@
                     <div class="tickets-container container-box">
                         <div class="container-header">
                             <i class="glyphicon glyphicon-user"></i>
-                            <h5>Users</h5>
-                            <h6>List of All Users</h6>
+                            <h5>User Records</h5>
+                            <h6>List of Registered Users</h6>
                         </div>
                         <div class="tickets-table">
-                            <table id="table_1" class="table">
+                            <table id="table_user" class="table">
                                 <thead>
                                 <tr>
-                                    <th>Number</th>
-                                    <th>Date</th>
-                                    <th>Category</th>
+                                    <th>No.</th>
                                     <th>Name</th>
-                                    <th>Title</th>
-                                    <th>Priority</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -247,18 +203,199 @@
                 </div>
             </div>
         </section>
-
-
     </section>
 </div>
+
+<!-- Modals - Add Task -->
+<div id="taskAdd" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Task</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="taskName">Enter Task Name:</label><br/>
+                        <input type="text" name="taskName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="taskProg">Estimate Task Progress:</label><br/>
+                        <input name="taskProg" class="ex1" data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-md btn-success" onclick="addTask(this)">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> <!-- end modal-->
+
+<!-- Modals - Add Ticket -->
+<div id="ticketAdd" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Ticket</h4>
+            </div>
+            <form action="/" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="taskName">Select Category :</label><br/>
+                        <select>
+                            <option>Front-End Site</option>
+                            <option>Technical Support</option>
+                            <option>General Information</option>
+                            <option>Sales</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ticketName">Ticket Issuer Name :</label><br/>
+                        <input type="text" name="ticketName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ticketTitle">Ticket Title :</label><br/>
+                        <input type="text" name="ticketTitle" />
+                    </div>
+                    <div class="form-group">
+                        <label for="taskName">Ticket Priority :</label><br/>
+                        <select>
+                            <option>Low</option>
+                            <option>Medium</option>
+                            <option>High</option>
+                            <option>Urgent</option>
+                            <option>Critical</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-md btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> <!-- end modal-->
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/javascripts/bootstrap-switch.js"></script>
+<script src="/bt-slider/bootstrap-slider.min.js"></script>
 <script src="/datatables/js/jquery.dataTables.js"></script>
 <script>
+
+    function listTask() {
+        $('.task-list').load('/admin/task', function (result) {
+            let taskData = JSON.parse(result);
+            $('.task-list').html('');
+            //Get and populate task list
+            taskData.forEach(function (taskitem, index, arr) {
+                let htmlBar = '';
+                let uid = taskitem._id;
+                let uprog = taskitem.taskProgress;
+                if (taskitem.taskProgress < 50) {
+                    htmlBar = '<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="' + taskitem.taskProgress + '" aria-valuemin="0" aria-valuemax="100" style="width:' + taskitem.taskProgress + '%"></div>'
+                } else if (taskitem.taskProgress >= 50 && taskitem.taskProgress < 80) {
+                    htmlBar = '<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="' + taskitem.taskProgress + '" aria-valuemin="0" aria-valuemax="100" style="width:' + taskitem.taskProgress + '%"></div>'
+                } else if (taskitem.taskProgress >= 80) {
+                    htmlBar = '<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="' + taskitem.taskProgress + '" aria-valuemin="0" aria-valuemax="100" style="width:' + taskitem.taskProgress + '%"></div>'
+                }
+
+                let htmlText =
+                        '<div class="task-item">' +
+                        '<form id="updateTask">' +
+                        '<div class="row">' +
+                        '<div class="task-item-text">' +
+                        '<div class="col-md-7">' +
+                        '<h5 class="text-left">' + taskitem.taskName + '</h5>' +
+                        '</div>' +
+                        '<div class="col-md-5">' +
+                        '<div class="task-item-percentage">' +
+                        '<div class="col-md-8">' +
+                        '<h5>'+taskitem.status+' </h5>' +
+                        '</div>' +
+                        '<div class="col-md-4">' +
+                        '<i class="glyphicon glyphicon-cog" uprog="'+uprog+'" onclick="updateTaskForm(this)"></i>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="row">' +
+                        '<div class="col-md-12">' +
+                        '<div class="task-item-bar">' +
+                        '<div class="progress">' +
+                        htmlBar +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-md-2 pull-right">' +
+                        '<button type="button" class="btn btn-sm btn-success taskSave" uid="'+uid+'" onclick="updateTask(this)">Save</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</form>' +
+                        '</div>'
+
+                $('.task-list').append(htmlText);
+            });
+
+        });
+    }
+
+    function updateTask(elem) {
+        let id = $(elem).attr('uid');
+        let formData = $(elem).parent().parent().parent().parent().serialize();
+        $.post('/admin/taskUpdate', {formData, id})
+        .done(function(result){
+            return listTask();
+        });
+    }
+
+    function addTask(elem) {
+        let formData = $(elem).parent().parent().serialize();
+        //console.log(formData);
+        $.post('/admin/taskAdd', {formData})
+        .done(function(result){
+            $('#taskAdd').modal('hide');
+            $(elem).parent().parent().reset();
+
+            return listTask();
+        })
+    }
+
+    function updateTaskForm(elem) {
+        //let e = $(elem).attr('uid');
+        //console.log(e);
+
+        let htmlElemStatus =
+        '<div class="col-md-12">' +
+            '<select class="btn btn-mini" name="taskStatus">' +
+                '<option selected="selected">Pending</option>' +
+                '<option>Completed</option>' +
+            '</select>' +
+        '</div>'
+
+        let eprog = $(elem).attr('uprog');
+        let htmlElemBar ='<input name="taskProg" class="ex1" data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="'+eprog+'"/>';
+
+        $(elem).parent().parent().parent().parent().parent().next().children().find('.taskSave').css("display", "block");
+        $(elem).parent().parent().parent().parent().parent().next().children().find('.task-item-bar').html(htmlElemBar);
+        $(elem).parent().parent().html(htmlElemStatus);
+
+        $('.ex1').slider({
+            formatter: function(value) {
+                return 'Current value: ' + value;
+            }
+        });
+    }
+
     $(document).ready(function() {
         "use strict";
+        listTask();
+        $('.ex1').slider({
+            formatter: function(value) {
+                return 'Current value: ' + value;
+            }
+        });
         // get & populate machine status
         let machineState = <%- JSON.stringify(dataMachine) %>;
         //Generate machine_box content
@@ -274,7 +411,7 @@
                     html = '<input type="checkbox" name="machineStateSwitch" alt="'+item._id+'" checked>'
                 }
                 htmlElements += '<div class="machine-box">'
-                                + '<div class="machine-box-desktop">'
+                                + '<div class="machine-box-desktop" data-toggle="tooltip" title="Current User: '+item.currentUser+'">'
                                     + '<img src="/images/components/desktop.svg" />'
                                     + '<div class="status '+item.status+'">'
                                         + '<p class="text-center"><b>'+item.no+'</b></p>'
@@ -301,7 +438,7 @@
             }
             else if(mbox.hasClass('active')) {
                 $(this).bootstrapSwitch('state',true, true);
-                alert('Can\'t Pause A Closed Connection');
+                alert('Can\'t Pause An Active Connection');
             };
         });
 
@@ -317,25 +454,26 @@
                     + '<td>'+item.priority+'</td>'
                     + '</tr>';
 
-            $('#table_1 tbody').append(html);
+            $('#table_ticket tbody').append(html);
         });
         //Initiate dt
-        $('#table_1').DataTable();
+        $('#table_ticket').DataTable();
 
         //Get and populate user table
         let users = <%- JSON.stringify(dataUser) %>
-        tickets.forEach(function(item) {
+        let counter = 1;
+        users.forEach(function(item) {
             var html = '<tr>'
-                    + '<td>[#'+item.number+']</td>'
-                    + '<td>'+item.date+'</td>'
-                    + '<td>'+item.category+'</td>'
-                    + '<td>'+item.name+'</td>'
-                    + '<td>'+item.title+'</td>'
-                    + '<td>'+item.priority+'</td>'
+                    + '<td>'+counter+'.</td>'
+                    + '<td class="text-capitalize">'+item.name+'</td>'
+                    + '<td>'+item.email+'</td>'
+                    + '<td class="text-capitalize">'+item.status+'</td>'
                     + '</tr>';
 
-            $('#table_id tbody').append(html);
+            $('#table_user tbody').append(html);
+            counter++;
         });
+        $('#table_user').DataTable();
     });
 </script>
 </body>

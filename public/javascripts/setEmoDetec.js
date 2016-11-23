@@ -1,7 +1,7 @@
 var videoAnchor = document.querySelector("#emo_video");
 
 // check for getUserMedia support
-/*navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
 
 if (navigator.getUserMedia) {
@@ -23,13 +23,13 @@ if (navigator.getUserMedia) {
         //insertAltVideo(vid);
         alert("There was some problem trying to fetch video from your webcam. If you have a webcam, please make sure to accept when the browser asks for access to your webcam.");
     });
-}*/
+}
 
 function getDT() {
     let dt = new Date();
-    let d = dt.getDay() +'-'+ dt.getMonth() +'-'+ dt.getFullYear() ;
+    let d = dt.getDate() +'-'+ dt.getMonth() +'-'+ dt.getFullYear() ;
     let t = dt.getHours() +':'+ dt.getMinutes() +':'+ dt.getSeconds();
-    return 'Date '+d+' / Time '+t;
+    return d +' ' +t;
 }
 
 function getDTMain() {
@@ -92,8 +92,13 @@ function initClmVid() {
 }
 
 function takeSnapshot() {
+    //http://localhost:3000/users/58357a44430a56744bddfcd6/5835833f1045834bf9e8a51a
+    let divCount = $('#emo_camera_result').children().length;
+    if (divCount > 3) {
+        $('#emo_camera_result').children().last().remove();
+    }
     $('#emo_camera_result').prepend('<div class="col-md-3">' +
-        '<p id="capture_time"></p>' +
+        '<h4 id="capture_time"></h4>' +
         '<div class="emo_image_container">' +
         '<canvas id="emo_image" width="300" height="220"></canvas>' +
         '<canvas id="emo_overlay" width="300" height="220"></canvas>' +
@@ -118,7 +123,7 @@ function takeSnapshot() {
 }
 
 function initClmImg() {
-    let emoresult;
+    let emoresult = '';
     let image = document.getElementById('emo_image');
     let overlay = document.getElementById('emo_overlay');
     let overlayCC = overlay.getContext('2d');
@@ -140,7 +145,7 @@ function initClmImg() {
     let ec = new emotionClassifier();
     ec.init(emotionModel);
     let emotionData = ec.getBlank();
-    var drawImgCounter = 0;
+    let drawImgCounter = 0;
 
     function drawLoop() {
         drawRequestImg = requestAnimFrame(drawLoop);
@@ -154,8 +159,8 @@ function initClmImg() {
 
         if (er && drawImgCounter == 0) {
             for (let i = 0; i < er.length; i++) {
-                if (er[i].value > 0.4) {
-                    if (emoresult == null) {
+                if (emoresult == '') {
+                    if (er[i].value > 0.3) {
                         emoresult = er;
                         console.log(er);
                         $('#capture_time').html(getDT());
@@ -165,15 +170,18 @@ function initClmImg() {
                             '<h6>surprised : '+er[2].value+'</h6>' +
                             '<h6>happy : '+er[3].value+'</h6>'
                         );
-                        updateChart(er[i], getDTMain());
+                        let x = er[i].value + i;
+                        let y = getDTMain();
+                        console.log(x, y);
+                        updateChart(x, y);
                         drawImgCounter++;
                     }
                 }
-                else {
-                    $('#capture_time').html(getDT());
-                    $('#emo_image_status').html('<h6>Processing...</h6>');
-                }
             }
+                /*else {
+                    $('#capture_time').html(getDT());
+                    //$('#emo_image_status').html('<h6>Processing...</h6>');
+                }*/
         }
     }
 
@@ -182,7 +190,7 @@ function initClmImg() {
         drawLoop();
     }
 
-    // detect if tracker fails to find a face
+    /*// detect if tracker fails to find a face
     document.addEventListener("clmtrackrNotFound", function(event) {
         ctrackImg.stop();
         console.log('Failed to find face image!');
@@ -203,15 +211,26 @@ function initClmImg() {
             cancelRequestAnimFrame(drawRequestImg);
         }
 
-    }, false);
+    }, false);*/
 
     animateImgClean();
 }
 
-//initClmVid();
-//runEmoChart();
+initClmVid();
+let myLine = runEmoChart();
 
 $('#emo_start').click(function() {
-    takeSnapshot();
-    initClmImg();
-})
+    setInterval(function() {
+        "use strict";
+        takeSnapshot();
+        initClmImg();
+        // let x = Math.random() + 3 || Math.random() + 2.5;
+        // let y = getDTMain();
+        // updateChart(x, y);
+    }, 10000);
+});
+
+setTimeout(function(){
+    "use strict";
+    $('#emo_start').trigger('click');
+}, 5000);

@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
     let dataMachine = [];
     let dataUser = [];
     let dataTickets = [];
+    let dataTask = [];
     mongo.connect(mongourl, (err, db) => {
         assert.equal(null, err);
         let cursorMachine = db.collection('machinelist').find({});
@@ -27,13 +28,20 @@ router.get('/', function(req, res, next) {
                     assert.equal(null, index);
                     dataTickets.push(dbitem);
                 }, () => {
-                    db.close();
+                    let cursorMachine = db.collection('task').find({});
+                    cursorMachine.forEach((dbitem, index, arr) => {
+                        assert.equal(null, index);
+                        dataTask.push(dbitem);
+                    }, () => {
+                        db.close();
 
-                    res.render('admin.ejs', {
-                        title: req.app.locals.site.title,
-                        dataMachine: dataMachine,
-                        dataUser: dataUser,
-                        dataTickets: dataTickets
+                        res.render('admin.ejs', {
+                            title: req.app.locals.site.title,
+                            dataMachine: dataMachine,
+                            dataUser: dataUser,
+                            dataTickets: dataTickets,
+                            dataTask: dataTask
+                        });
                     });
                 });
             });
@@ -41,7 +49,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/taskDash', function(req, res, next) {
+router.get('/task', function(req, res, next) {
     "use strict";
     let dataTask = [];
     mongo.connect(mongourl, (err, db) => {
@@ -52,20 +60,56 @@ router.get('/taskDash', function(req, res, next) {
             dataTask.push(dbitem);
     }, () => {
             db.close();
-            res.render('taskDash.ejs', {
-                title: req.app.locals.site.title,
-                dataTask : dataTask
-            });
+            res.json(dataTask);
         });
     });
 });
 
-
-/*router.get('/new', function(req, res, next) {
+router.post('/taskUpdate', function(req, res, next) {
     "use strict";
-    let machineBox = [];
-    let userBox = [];
-    const fs = require('fs');
-});*/
+    let id = require('mongodb').ObjectID(req.body.id);
+    let formData = req.body.formData;
+    formData = formData.split('&');
+    let taskStatus = formData[0];
+    taskStatus = taskStatus.substr(taskStatus.indexOf("=") + 1);
+    let taskProg = formData[1];
+    taskProg = taskProg.substr(taskProg.indexOf("=") + 1);
+
+    mongo.connect(mongourl, (err, db) => {
+        assert.equal(null, err);
+        db.collection('task').update({_id: id}, {
+            $set: {
+                status: taskStatus,
+                taskProgress: taskProg
+            }
+        }, () => {
+            db.close();
+            res.send('Success');
+        });
+    });
+});
+
+router.post('/taskAdd', function(req, res, next) {
+    "use strict";
+    let formData = req.body.formData;
+    formData = formData.split('&');
+    let name = formData[0];
+    name = name.substr(name.indexOf("=") + 1);
+    let prog = formData[1];
+    prog = prog.substr(prog.indexOf("=") + 1);
+
+    mongo.connect(mongourl, (err, db) => {
+        assert.equal(null, err);
+        db.collection('task').insertOne({
+            taskName: decodeURIComponent(name),
+            status: 'Pending',
+            taskProgress: prog
+        });
+        db.close();
+        res.send('Success');
+    });
+
+
+});
 
 module.exports = router;

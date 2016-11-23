@@ -52,15 +52,15 @@
                 </div>
                 <div class="form-group">
                   <label for="name">name : </label>
-                  <input type="text" name="name" />
+                  <input type="text" name="name" pattern=".{3,}" required/>
                 </div>
                 <div class="form-group">
                   <label for="pass">pass : </label>
-                  <input type="text" name="pass" />
+                  <input type="text" name="pass" pattern=".{4,}" required/>
                 </div>
                 <div class="form-group">
                   <label for="email">email : </label>
-                  <input type="text" name="email" />
+                  <input type="text" name="email" pattern="^\S+@\S+\.\S+$"/>
                 </div>
                 <button type="submit" class="btn btn-primary">Register</button>
               </form>
@@ -78,7 +78,7 @@
         "use strict";
         let openmachine = <%- JSON.stringify(openmachine) %>
         openmachine.forEach(function(item) {
-          $('.machineNo').append('<option value='+item.no+'>'+item.no+'</option>')
+          $('.machineNo').append('<option value='+item._id+'>'+item.no+'</option>')
         })
       });
     </script>

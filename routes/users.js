@@ -3,7 +3,7 @@ const router = express.Router();
 
 const mongo = require('mongodb').MongoClient;
 const assert = require('assert');
-const mongourl = 'mongodb://localhost:27017/test';
+const mongourl = 'mongodb://localhost:27017/wbccms';
 
 /* GET users listing. */
 router.get('/:machineNo/:userid', function(req, res, next) {
@@ -11,6 +11,7 @@ router.get('/:machineNo/:userid', function(req, res, next) {
   let data = [];
   let userid = req.params.userid;
   let machineNo = req.params.machineNo;
+  machineNo = require('mongodb').ObjectID(machineNo);
   userid = require('mongodb').ObjectID(userid);
 
   mongo.connect(mongourl, (err, db) => {
@@ -25,6 +26,7 @@ router.get('/:machineNo/:userid', function(req, res, next) {
           assert.equal(null, index);
           data.push(dbitem);
         }, () => {
+
           let lastE = data[0].timelog.length - 1;
           db.close();
 
@@ -78,6 +80,13 @@ router.post('/pay/:machineNo/:userid', function(req, res, next) {
           status: 'inactive'
         }
       });
+        machineNo = require('mongodb').ObjectID(machineNo);
+        db.collection('machinelist').update({_id: machineNo}, {
+            $set: {
+                status: 'open',
+                currentUser: null
+            }
+        });
 
       db.close();
       res.redirect('/index/');

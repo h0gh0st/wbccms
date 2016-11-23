@@ -55,6 +55,7 @@ app.use('/datatables', express.static(__dirname + '/node_modules/datatables.net'
 app.use('/datatables', express.static(__dirname + '/node_modules/datatables.net-dt')); // redirect CSS dt
 app.use('/chart', express.static(__dirname + '/node_modules/chart.js/dist'));
 app.use('/webcamjs', express.static(__dirname + '/node_modules/webcamjs'));
+app.use('/bt-slider', express.static(__dirname + '/node_modules/bootstrap-slider/dist')); // redirect bt-slider
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -88,7 +89,7 @@ app.use(function(err, req, res, next) {
 });
 
 app.locals.site = {
-  title: 'The Lemonade Party',
+  title: 'KK Cyber Cafe Solution',
   rate: 2.00
 };
 
