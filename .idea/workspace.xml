@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5fd9a515-0ca8-4ba8-98fd-6d80fc155319" name="Default" comment="Final">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/data/machine.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/data/task.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/data/tickets.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/data/user.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/user-img/ben.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/taskDash-style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/views/adminDash.ejs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/views/taskDash.ejs" afterPath="" />
+    <list default="true" id="5fd9a515-0ca8-4ba8-98fd-6d80fc155319" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/admin-style.css" afterPath="$PROJECT_DIR$/public/stylesheets/admin-style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/admin.js" afterPath="$PROJECT_DIR$/routes/admin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/admin.ejs" afterPath="$PROJECT_DIR$/views/admin.ejs" />
     </list>
     <ignored path="untitled1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -307,7 +296,7 @@
       <workItem from="1479788835937" duration="4101000" />
       <workItem from="1479816509606" duration="5816000" />
       <workItem from="1479882392321" duration="13177000" />
-      <workItem from="1479954367192" duration="15608000" />
+      <workItem from="1479954367192" duration="15623000" />
     </task>
     <task id="LOCAL-00001" summary="machine list work done for admin">
       <created>1476681868839</created>
@@ -372,11 +361,18 @@
       <option name="project" value="LOCAL" />
       <updated>1479904897511</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Final">
+      <created>1479979729235</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1479979729235</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="371015000" />
+    <option name="totallyTimeSpent" value="371030000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
