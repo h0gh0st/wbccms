@@ -36,7 +36,7 @@ html, body {
 .top-stat li {
     border-right: groove 1px black;
     float: left;
-    padding: 0% 2%;
+    padding: 0 2%;
     margin-right: 3%;
 }
 
@@ -55,6 +55,19 @@ html, body {
 .top-stat li:nth-child(2) > .top-stat-text h4, .top-stat li:nth-child(2) > .top-stat-figure {
     color: goldenrod;
 }
+
+#rateBtn {
+    cursor: pointer;
+}
+
+#rateInput {
+    width: 50px;
+}
+
+#rateSave {
+    display: none;
+}
+
 
 .content-header h1, h4{
     display: inline-block;
@@ -303,6 +316,11 @@ html, body {
     margin: 0 28%;
 }
 
+.task-list {
+    max-height: 550px;
+    overflow-y:scroll;
+    overflow-x: hidden;
+}
 
 .task-list > .task-item {
     width: 100%;
@@ -332,6 +350,14 @@ html, body {
 
 #ticketAdd .modal-body {
     text-align: center;
+}
+
+.ticketBtn.active {
+    background-color: green;
+}
+
+.ticketBtn:hover {
+    background-color: green;
 }
 
 .slider-selection {
