@@ -399,9 +399,9 @@ select.btn-mini:hover {
     margin: 10px;
 }
 
-.dataTables_paginate {
+/*.dataTables_paginate {
     display: none;
-}
+}*/
 
 .ticket-container table {
     width: 90%;

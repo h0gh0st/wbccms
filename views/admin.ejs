@@ -34,7 +34,7 @@
                         <li>
                             <div class="top-stat-text">
                                 <h6>Active Users</h6>
-                                <h4 id="miniStatActiveUsers"><i class="glyphicon glyphicon-plus-sign"></i> </h4>
+                                <h4 id="miniStatActiveUsers"> </h4>
                             </div>
                             <div class="top-stat-figure">
                                 <i class="glyphicon glyphicon-signal"></i>
@@ -43,7 +43,7 @@
                         <li>
                             <div class="top-stat-text">
                                 <h6>Total Users</h6>
-                                <h4 id="miniStatTotalUsers"><i class="glyphicon glyphicon-plus-sign"></i> </h4>
+                                <h4 id="miniStatTotalUsers"> </h4>
                             </div>
                             <div class="top-stat-figure">
                                 <i class="glyphicon glyphicon-signal"></i>
@@ -81,31 +81,19 @@
                         <div class="charts-container">
                             <div class="col-md-4">
                                 <div id="statMachine" class="pie-wrapper progress-30">
-
-                                    <div class="pie">
-                                        <div class="left-side half-circle"></div>
-                                        <div class="right-side half-circle"></div>
-                                    </div>
+                                    <div id="temp"></div>
                                 </div>
                                 <h3>Active Machines</h3>
                             </div>
                             <div class="col-md-4">
                                 <div id="statTask" class="pie-wrapper progress-60">
-
-                                    <div class="pie">
-                                        <div class="left-side half-circle"></div>
-                                        <div class="right-side half-circle"></div>
-                                    </div>
+                                    <div id="temp"></div>
                                 </div>
                                 <h3>Pending Tasks</h3>
                             </div>
                             <div class="col-md-4">
                                 <div id="statTicket" class="pie-wrapper progress-90">
-
-                                    <div class="pie">
-                                        <div class="left-side half-circle"></div>
-                                        <div class="right-side half-circle"></div>
-                                    </div>
+                                    <div id="temp"></div>
                                 </div>
                                 <h3>Pending Tickets</h3>
                             </div>
@@ -153,8 +141,9 @@
                             <table id="table_ticket" class="table">
                                 <thead>
                                 <tr>
-                                    <th></th>
-                                    <th>Number</th>
+                                    <th>No.</th>
+                                    <th>Status</th>
+                                    <th>Ticket No.</th>
                                     <th>Date</th>
                                     <th>Category</th>
                                     <th>Name</th>
@@ -188,6 +177,8 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Status</th>
+                                    <th>Total Time / sec</th>
+                                    <th>Total Price / RM</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -302,53 +293,62 @@
         })
     }
 
-    // get & populate machine status
-    let machineState = <%- JSON.stringify(dataMachine) %>;
     function listMachine() {
-        //Generate machine_box content
-        if (machineState != null) {
-            let htmlElements = "";
-            machineState.forEach(function (item, index, arr) {
-                let status = item.status;
-                let html = ""
-                if (item.status == 'paused') {
-                    html = '<input type="checkbox" name="machineStateSwitch" alt="' + item._id + '">';
-                }
-                else {
-                    html = '<input type="checkbox" name="machineStateSwitch" alt="' + item._id + '" checked>'
-                }
-                htmlElements += '<div class="machine-box">'
-                        + '<div class="machine-box-desktop" data-toggle="tooltip" title="Current User: ' + item.currentUser + '">'
-                        + '<img src="/images/components/desktop.svg" />'
-                        + '<div class="status ' + item.status + '">'
-                        + '<p class="text-center"><b>' + item.no + '</b></p>'
-                        + '</div>'
-                        + '</div>'
-                        + html
-                        + '</div>'
-            });
-            $('.machine-status-content').append(htmlElements);
-            //Initiate and set switches for machine status
-            $.fn.bootstrapSwitch.defaults.size = 'mini';
-            $.fn.bootstrapSwitch.defaults.onColor = 'warning';
-            $("[name='machineStateSwitch']").bootstrapSwitch().on('switchChange.bootstrapSwitch', function (event, state) {
-                var mbox = $(this).parent().parent().prev().children('div');
-                console.log(mbox.className);
-                if (mbox.hasClass('open')) {
-                    mbox.removeClass('open');
-                    mbox.addClass('paused');
-                }
-                else if (mbox.hasClass('paused')) {
-                    mbox.removeClass('paused');
-                    mbox.addClass('open');
-                }
-                else if (mbox.hasClass('active')) {
-                    $(this).bootstrapSwitch('state', true, true);
-                    alert('Can\'t Pause An Active Connection');
-                }
-            });
-        }
+        $('.machine-status-content').load('/admin/machine', function (result) {
+            let machineState = JSON.parse(result);
+            $('.machine-status-content').html('');
+
+            if (machineState != null) {
+                let htmlElements = "";
+                machineState.forEach(function (item, index, arr) {
+                    let status = item.status;
+                    let html = ""
+                    if (item.status == 'paused') {
+                        html = '<input type="checkbox" name="machineStateSwitch" alt="' + item._id + '">';
+                    }
+                    else {
+                        html = '<input type="checkbox" name="machineStateSwitch" alt="' + item._id + '" checked>'
+                    }
+                    htmlElements += '<div class="machine-box">'
+                            + '<div class="machine-box-desktop" data-toggle="tooltip" title="Current User: ' + item.currentUser + '">'
+                            + '<img src="/images/components/desktop.svg" />'
+                            + '<div class="status ' + item.status + '">'
+                            + '<p class="text-center"><b>' + item.no + '</b></p>'
+                            + '</div>'
+                            + '</div>'
+                            + html
+                            + '</div>'
+                });
+                $('.machine-status-content').append(htmlElements);
+                //Initiate and set switches for machine status
+                $.fn.bootstrapSwitch.defaults.size = 'mini';
+                $.fn.bootstrapSwitch.defaults.onColor = 'warning';
+                $("[name='machineStateSwitch']").bootstrapSwitch().on('switchChange.bootstrapSwitch', function (event, state) {
+                    var mbox = $(this).parent().parent().prev().children('div');
+                    //console.log(mbox.className);
+                    if (mbox.hasClass('open')) {
+                        mbox.removeClass('open');
+                        mbox.addClass('paused');
+                        let id = $(this).attr('alt');
+                        let toStatus = 'paused';
+                        $.post('/admin/machineUpdate/', {'id': id, 'toStatus': toStatus});
+                    }
+                    else if (mbox.hasClass('paused')) {
+                        mbox.removeClass('paused');
+                        mbox.addClass('open');
+                        let id = $(this).attr('alt');
+                        let toStatus = 'open';
+                        $.post('/admin/machineUpdate/', {'id': id, 'toStatus': toStatus});
+                    }
+                    else if (mbox.hasClass('active')) {
+                        $(this).bootstrapSwitch('state', true, true);
+                        alert('Can\'t Pause An Active Connection');
+                    }
+                });
+            }
+        });
     }
+    listMachine();
 
     function listTask() {
         $('.task-list').load('/admin/task', function (result) {
@@ -406,9 +406,9 @@
 
                 $('.task-list').append(htmlText);
             });
-
         });
     }
+    listTask();
 
     function updateTask(elem) {
         let id = $(elem).attr('uid');
@@ -456,6 +456,7 @@
         $('#table_ticket tbody').load('/admin/tickets', function (result) {
             let ticketData = JSON.parse(result);
             $('#table_ticket tbody').html('');
+            let counter = 1;
             ticketData.forEach(function (item) {
                 let uid = item._id;
                 let htmlElem = '';
@@ -486,6 +487,7 @@
                         break;
                 }
                 let html = '<tr>'
+                        + '<td>'+counter+'.</td>'
                         + htmlElem
                         + '<td>[#' + item.number + ']</td>'
                         + '<td>' + item.date + '</td>'
@@ -496,15 +498,19 @@
                         + '</tr>';
 
                 $('#table_ticket tbody').append(html);
+                counter ++;
             });
+            $('#table_ticket').DataTable();
         });
     }
+    listTicket();
 
     function updateTicket(elem) {
         let id = $(elem).attr('uid');
         $.post('/admin/ticketUpdate', {id})
         .done(function(result){
-            return listTicket();
+            $('#table_ticket').dataTable().fnDestroy();
+            listTicket();
         });
     }
 
@@ -514,87 +520,126 @@
         .done(function(result){
             $('#ticketAddForm')[0].reset();
             $('#ticketAdd').modal('hide');
+            $('#table_ticket').dataTable().fnDestroy();
             return listTicket();
         })
     }
 
+    function listUsers(){
+        $('#table_user tbody').load('/admin/users', function (result) {
+            let usersData = JSON.parse(result);
+            $('#table_user tbody').html('');
+            let counter = 1;
+            usersData.forEach(function(item) {
+                let totalTime = 0;
+                let currTimeDiff = 0;
+                let totalPrice = 0;
+                let currPrice = '';
+                for( let i=0; i<item.timelog.length; i++) {
+                    if (item.timelog[i].logoutMsec != null) {
+                        currTimeDiff = item.timelog[i].logoutMsec - item.timelog[i].loginMsec;
+                    }
+                    else {
+                        currTimeDiff = 0;
+                    }
+                    totalTime += currTimeDiff;
+                    if (item.timelog[i].price != null) {
+                        currPrice = item.timelog[i].price.replace(/^[A-Z][A-Z]/, '').trim();
+                    }
+                    else {
+                        currPrice = 0;
+                    }
+                    totalPrice += Number(currPrice);
+                }
+
+                var html = '<tr>'
+                        + '<td>'+counter+'.</td>'
+                        + '<td class="text-capitalize">'+item.name+'</td>'
+                        + '<td>'+item.email+'</td>'
+                        + '<td class="text-capitalize">'+item.status+'</td>'
+                        + '<td>'+((totalTime/1000)%60).toFixed(2)+'</td>'
+                        + '<td>'+totalPrice+'</td>'
+                        + '</tr>';
+
+                $('#table_user tbody').append(html);
+                counter++;
+            });
+            $('#table_user').DataTable();
+        });
+    }
+    listUsers();
+
+    function listMiniStats() {
+        $('#miniStatActiveUsers').load('/admin/users', function (result) {
+            let users = JSON.parse(result);
+            $('#miniStatActiveUsers').html('');
+            let activeUsers = users.filter(function(list){
+                return list.status === 'active'
+            });
+            $('#miniStatActiveUsers').html('<i class="glyphicon glyphicon-plus-sign"></i>' +activeUsers.length+' users');
+            $('#miniStatTotalUsers').html('<i class="glyphicon glyphicon-plus-sign"></i>' +users.length+' users');
+        });
+    }
+    listMiniStats();
+
+    function listStats() {
+        let htmlElem = '<div id="temp"></div>' +
+                '<div class="pie">' +
+                '<div class="left-side half-circle"></div>' +
+                '<div class="right-side half-circle"></div>' +
+                '</div>';
+
+        $('#statMachine #temp').load('/admin/machine', function (result) {
+            let machineState = JSON.parse(result);
+            $('#statMachine #temp').html('');
+            let activeMachines = machineState.filter(function (list) {
+                return list.status === 'active';
+            });
+            if (activeMachines.length == 0) {
+                $('#statMachine').html('<span class="label">0</span>' +htmlElem);
+            }
+            else {
+                $('#statMachine').html('<span class="label">' + activeMachines.length + '</span>' +htmlElem);
+            }
+        });
+
+        $('#statTask #temp').load('/admin/task', function (result) {
+            let task = JSON.parse(result);
+            $('#statTask #temp').html('');
+            let pendingTask = task.filter(function(list){
+                return list.status === 'Pending';
+            });
+            //console.log(pendingTask.length);
+            $('#statTask').html('<span class="label">'+pendingTask.length+'</span>' +htmlElem);
+        });
+
+        $('#statTicket #temp').load('/admin/tickets', function (result) {
+            let ticket = JSON.parse(result);
+            $('#statTicket #temp').html('');
+            let pendingTicket = ticket.filter(function (list) {
+                return list.priority !== 'Completed';
+            });
+            $('#statTicket').html('<span class="label">' + pendingTicket.length + '</span>' +htmlElem);
+        });
+    }
+    listStats();
+
     $(document).ready(function() {
         "use strict";
-
-        //Get and populate user table
-        let users = <%- JSON.stringify(dataUser) %>;
-        let counter = 1;
-        users.forEach(function(item) {
-            var html = '<tr>'
-                    + '<td>'+counter+'.</td>'
-                    + '<td class="text-capitalize">'+item.name+'</td>'
-                    + '<td>'+item.email+'</td>'
-                    + '<td class="text-capitalize">'+item.status+'</td>'
-                    + '</tr>';
-
-            $('#table_user tbody').append(html);
-            counter++;
-        });
-        $('#table_user').DataTable();
-
-        let activeUsers = users.filter(function(list){
-            return list.status === 'active'
-        });
-        $('#miniStatActiveUsers').append(activeUsers.length+' users');
-        $('#miniStatTotalUsers').append(users.length+' users');
-
-        //$('.charts-container').
-        function closest (num, arr) {
-            let curr = arr[0];
-            let diff = Math.abs (num - curr);
-            for (let val = 0; val < arr.length; val++) {
-                let newdiff = Math.abs (num - arr[val]);
-                if (newdiff < diff) {
-                    diff = newdiff;
-                    curr = arr[val];
-                }
-            }
-            return curr;
-        }
-        let array = [30, 45, 60, 75, 90, 95];
-        let number = 55;
-        //console.log (closest (number, array));
-
-        let activeMachines = machineState.filter(function(list){
-            return list.status === 'active';
-        });
-        if (activeMachines.length == 0) {
-            $('#statMachine').prepend('<span class="label">0</span>');
-        }
-        else {
-            $('#statMachine').prepend('<span class="label">'+activeMachines.length+'</span>');
-        }
-
-        let task = <%- JSON.stringify(dataTask) %>;
-        let pendingTask = task.filter(function(list){
-            return list.status === 'Pending';
-        });
-        $('#statTask').prepend('<span class="label">'+pendingTask.length+'</span>');
-
-        let ticket = <%- JSON.stringify(dataTickets) %>;
-        let pendingTicket = ticket.filter(function(list){
-            return list.priority !== 'Completed';
-        });
-        $('#statTicket').prepend('<span class="label">'+pendingTicket.length+'</span>');
-
-        //Initialize
-        listTask();
         //Initialize slider
         $('.ex1').slider({
             formatter: function(value) {
                 return 'Current value: ' + value;
             }
         });
-        //Initiate dt
-        $('#table_ticket').DataTable({"paging": false});
 
-        listMachine();
-        listTicket();
+        //Reload
+        setInterval(function() {
+            listMachine();
+            listStats();
+            listMiniStats();
+            listUsers();
+        }, 3000);
     });
 </script>
 </body>

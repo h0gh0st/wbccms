@@ -1,5 +1,5 @@
 var time = ['0'];
-var emo = ['2'];
+var emo = ['5'];
 
 var randomColorFactor = function() {
     return Math.round(Math.random() * 255);
@@ -51,11 +51,11 @@ var config = {
                         if(value===0)
                             return 'Not Found';
                         if(value===1)
-                            return 'Sad';
-                        if(value===2)
-                            return 'Confused';
-                        if(value===3)
                             return 'Angry';
+                        if(value===2)
+                            return 'Sad';
+                        if(value===3)
+                            return 'Surprised';
                         if(value===4)
                             return 'Happy';
                     },
@@ -87,17 +87,6 @@ function runEmoChart() {
         console.log('Fire');
     }, 5000);*/
 }
-
-function updateChart(x, y) {
-    "use strict";
-    let dataCount = myLine.data.datasets[0].data.length;
-    let labelCount = myLine.data.labels.length;
-    myLine.data.datasets[0].data[dataCount] = x;
-    myLine.data.labels[labelCount] = y;
-    myLine.update();
-    console.log('Update Chart')
-}
-
 
 /* var chartData = {
  labels: ["January", "February", "March", "April", "May", "June", "July"],

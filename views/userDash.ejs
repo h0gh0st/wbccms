@@ -130,6 +130,24 @@
     <script src="/javascripts/clmtrackr/emotion_classifier.js"></script>
     <script src="/javascripts/clmtrackr/emotionmodel.js"></script>
     <script src="/javascripts/setUserChart.js"></script>
+    <script>
+        function updateChart(x, y, z) {
+            "use strict";
+            let dataCount = myLine.data.datasets[0].data.length;
+            let labelCount = myLine.data.labels.length;
+            myLine.data.datasets[0].data[dataCount] = x;
+            myLine.data.labels[labelCount] = y;
+            myLine.update();
+
+            let timestamp = z;
+            let reading = x;
+            let id = <%- JSON.stringify(userId) %>;
+            $.post('/users/updateEmo', {'timestamp' : timestamp, 'reading' : reading, 'id': id})
+            .done(function(result){
+                console.log('Ok');
+            });
+        }
+    </script>
     <script src="/javascripts/setEmoDetec.js"></script>
 
     <script>
@@ -139,6 +157,7 @@
             //Increment Time
             let getT = <%- loginT %>;
             let getR = <%- rate %>;
+
             function generateTime(dbt, dbr) {
                 let dt = new Date();
                 let msec = dt.getTime();
@@ -146,20 +165,20 @@
                 let hh = Math.floor(diff / 1000 / 60 / 60);
                 let mm = Math.floor(diff / 1000 / 60 % 60);
                 let ss = Math.floor(diff / 1000 % 60);
-                let t = hh +'h '+ mm +'m '+ ss +'s ';
+                let t = hh + 'h ' + mm + 'm ' + ss + 's ';
                 $('#loginT').html(t);
 
-                let price = ((dbr * hh) + (dbr/60 * mm) + (dbr/3600)).toFixed(2);
-                $('#price').html('RM ' +price);
+                let price = ((dbr * hh) + (dbr / 60 * mm) + (dbr / 3600)).toFixed(2);
+                $('#price').html('RM ' + price);
             };
-            setInterval(function() {
+            setInterval(function () {
                 generateTime(getT, getR);
             }, 1000);
 
             //Open Modal
-            $('#to_pay').click(function(){
-                $('#finalT').val( $('#loginT').html() );
-                $('#finalP').val( $('#price').html() );
+            $('#to_pay').click(function () {
+                $('#finalT').val($('#loginT').html());
+                $('#finalP').val($('#price').html());
 
                 let radios = document.getElementsByName('optradio');
                 for (var i = 0, length = radios.length; i < length; i++) {

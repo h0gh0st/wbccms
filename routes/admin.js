@@ -68,6 +68,40 @@ router.post('/rateChange', function(req, res, next) {
     res.send('Success');
 });
 
+router.get('/machine', function(req, res, next) {
+    "use strict";
+    let dataMachine = [];
+    mongo.connect(mongourl, (err, db) => {
+        assert.equal(null, err);
+        let cursorMachine = db.collection('machinelist').find({});
+        cursorMachine.forEach((dbitem, index, arr) => {
+            assert.equal(null, index);
+            dataMachine.push(dbitem);
+        }, () => {
+            db.close();
+            res.json(dataMachine);
+        });
+    });
+});
+
+router.post('/machineUpdate/', function(req, res, next) {
+    "use strict";
+    let id = require('mongodb').ObjectID(req.body.id);
+    let toStatus = req.body.toStatus;
+
+    mongo.connect(mongourl, (err, db) => {
+        assert.equal(null, err);
+        db.collection('machinelist').update({_id: id}, {
+            $set: {
+                status: toStatus,
+            }
+        }, () => {
+            db.close();
+            res.send('Success');
+        });
+    });
+});
+
 router.get('/task', function(req, res, next) {
     "use strict";
     let dataTask = [];
@@ -205,6 +239,22 @@ router.post('/ticketAdd', function(req, res, next) {
 
             db.close();
             res.send('Success');
+        });
+    });
+});
+
+router.get('/users', function(req, res, next) {
+    "use strict";
+    let dataUsers = [];
+    mongo.connect(mongourl, (err, db) => {
+        assert.equal(null, err);
+        let cursorTicket = db.collection('userdata').find({});
+        cursorTicket.forEach((dbitem, index, arr) => {
+            assert.equal(null, index);
+            dataUsers.push(dbitem);
+        }, () => {
+            db.close();
+            res.json(dataUsers);
         });
     });
 });

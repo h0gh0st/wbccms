@@ -94,4 +94,25 @@ router.post('/pay/:machineNo/:userid', function(req, res, next) {
   });
 });
 
+router.post('/updateEmo', function(req, res, next) {
+  "use strict";
+  let timestamp = req.body.timestamp;
+  let reading = req.body.reading;
+  let id = req.body.id;
+  id = require('mongodb').ObjectID(id);
+
+  mongo.connect(mongourl, (err, db) => {
+    assert.equal(null, err);
+    db.collection('userdata').update({_id: id}, {
+      $push : { emotion : {
+        timestamp: timestamp,
+        reading: reading
+      }}
+    });
+    db.close();
+  });
+
+
+});
+
 module.exports = router;

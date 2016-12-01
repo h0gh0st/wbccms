@@ -170,10 +170,10 @@ function initClmImg() {
                             '<h6>surprised : '+er[2].value+'</h6>' +
                             '<h6>happy : '+er[3].value+'</h6>'
                         );
-                        let x = er[i].value + i;
+                        let x = er[i].value + i + 1;
                         let y = getDTMain();
                         console.log(x, y);
-                        updateChart(x, y);
+                        updateChart(x, y, getDT());
                         drawImgCounter++;
                     }
                 }
@@ -227,10 +227,10 @@ $('#emo_start').click(function() {
         // let x = Math.random() + 3 || Math.random() + 2.5;
         // let y = getDTMain();
         // updateChart(x, y);
-    }, 10000);
+    }, 30000);
 });
 
 setTimeout(function(){
     "use strict";
     $('#emo_start').trigger('click');
-}, 5000);
+}, 1000);

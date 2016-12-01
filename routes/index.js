@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const passwordHash = require('password-hash');
 const mongo = require('mongodb').MongoClient;
 const assert = require('assert');
 const mongourl = 'mongodb://localhost:27017/wbccms';
@@ -9,7 +10,6 @@ mongo.connect(mongourl, (err, db) => {
   assert.equal(null, err);
   console.log('Connection Succesful');
 });
-
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -49,8 +49,10 @@ router.post('/login', (req, res, next) => {
     let cursor = db.collection('userdata').find({}, {name: 1, pass: 1, status: 1});
     cursor.forEach((dbitem, index, arr) => {
       assert.equal(null, index);
-      if(dbitem.name === name && dbitem.pass === pass) {
-        data.push(dbitem);
+      if(dbitem.name === name) {
+        if(passwordHash.verify(pass, dbitem.pass) == true) {
+          data.push(dbitem);
+        }
       }
     }, () => {
 
@@ -113,12 +115,13 @@ router.post('/register', function(req, res, next) {
   let msec = dt.getTime();
   let name = req.body.name;
   let pass = req.body.pass;
+  let hashedPass = passwordHash.generate(pass);
   let email = req.body.email;
 
   let item = {
     name: name,
     email: email,
-    pass: pass,
+    pass: hashedPass,
     timelog: [{
       date: d,
       login: t,
@@ -127,11 +130,7 @@ router.post('/register', function(req, res, next) {
       logoutMsec: null,
       price: null
     }],
-    emotion: [{
-      date: null,
-      time: null,
-      reading: null
-    }],
+    emotion: [],
     status: 'active'
   };
 
